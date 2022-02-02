@@ -1,6 +1,6 @@
 import { UseMutationOptions, useMutation } from 'react-query';
-import { signInUser } from '../../data/auth';
-import { SignInUserData, SignInUserResponse } from '../../types/auth';
+import { signInUser } from '@/data/auth';
+import { SignInUserData, SignInUserResponse } from '@/types/auth';
 
 export function useSignInUserMutation(
   options?: UseMutationOptions<SignInUserResponse, Error, SignInUserData>,

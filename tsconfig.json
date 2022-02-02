@@ -1,15 +1,26 @@
 {
-    "compilerOptions": {
-        "target": "ES5",
-        "module": "ESNext",
-        "moduleResolution": "node",
-        "lib": ["DOM", "ESNext"],
-        "jsx": "react-jsx",
-        "strict": true,
-        "resolveJsonModule": true,
-        "sourceMap": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-    },
-    "include": ["src/**/*"]
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "lib": ["DOM", "ESNext"],
+    "jsx": "react-jsx",
+    "strict": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+        "@/api-types/*": ["./src/api-types/*"],
+        "@/components/*": ["./src/components/*"],
+        "@/data/*": ["./src/data/*"],
+        "@/hooks/*": ["./src/hooks/*"],
+        "@/modules/*": ["./src/modules/*"],
+        "@/queries/*": ["./src/queries/*"],
+        "@/types/*": ["./src/types/*"],
+        "@/utils/*": ["./src/utils/*"],
+    }
+  },
+  "include": ["src/**/*"]
 }
