@@ -1,23 +1,19 @@
 import axios from 'axios';
+import { SignUpUserData, SignUnUserResponse } from '../../types/auth/auth';
 import { signInUserMock } from './__mocks/authServicesMocks';
 
 export const signInUser = signInUserMock;
 
 const API_URL = 'http://173.212.214.70:3001/auth/';
 
-export const SignUpUser = (
-  email: string,
-  password: string,
-  name: string,
-) => {
+export const signUpUser = (
+  signUpUserData: SignUpUserData,
+): Promise<SignUnUserResponse> => {
   return axios
-    .post(`${API_URL}signup`, {
-      email,
-      password,
-      name,
-    })
+    .post<SignUnUserResponse>(`${API_URL}signup`, signUpUserData)
     .then((res) => {
       console.log(res.data);
+      return res.data;
     });
 };
 
