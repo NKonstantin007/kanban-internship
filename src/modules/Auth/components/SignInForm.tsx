@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { useCallback } from 'react';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { SignInUserData } from '@/types/auth';
 import { useSignInUser } from '../hooks/useSignInUser';
 
@@ -50,7 +50,7 @@ export const SignInForm = () => {
       >
         <Box display="flex" gap={2} alignItems="center" justifyContent="center">
           <Typography variant="h6" align="center">
-            Sing in
+            Sign in
           </Typography>
           {isSubmitting && <CircularProgress size={20} />}
         </Box>
@@ -69,7 +69,7 @@ export const SignInForm = () => {
                   <TextField
                     error={fieldState.invalid}
                     helperText={fieldState?.error?.message}
-                    label="Username"
+                    label="Login"
                     fullWidth
                     disabled={isSubmitting}
                     {...field}
@@ -90,22 +90,25 @@ export const SignInForm = () => {
                   />
                 )}
               />
-              <Box alignSelf="flex-end">
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                flexDirection="row"
+              >
+                <Button
+                  variant="text"
+                  type="button"
+                  onClick={() => history.push('/register')}
+                >
+                  Sign up for an account
+                </Button>
                 <Stack direction="row" spacing={2}>
-                  <Button
-                    variant="outlined"
-                    type="button"
-                    onClick={() => reset()}
-                    disabled={isSubmitting}
-                  >
-                    Reset
-                  </Button>
                   <Button
                     variant="contained"
                     type="submit"
                     disabled={isSubmitting}
                   >
-                    Sign in
+                    Log In
                   </Button>
                 </Stack>
               </Box>
