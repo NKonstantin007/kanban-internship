@@ -1,5 +1,7 @@
-getAuthData({at, rt}) {
+getAuthData({accessToken, refreshToken}) {
   return getToLocalStorage;
 }
 
-set
+setAuthData({accessToken}) {
+  return setToken;
+}

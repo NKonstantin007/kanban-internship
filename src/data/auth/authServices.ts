@@ -1,5 +1,14 @@
 import axios from 'axios';
-import { SignUpUserData, SignUnUserResponse } from '../../types/auth/auth';
+import {
+  SignUpUserData,
+  SignUnUserResponse,
+  SignInUserData,
+  SignInUserResponse,
+  RefreshTokenData,
+  RefreshTokenResponse,
+  LogoutUserResponse,
+} from '../../types/auth/auth';
+import api from '../http/index';
 import { signInUserMock } from './__mocks/authServicesMocks';
 
 export const signInUser = signInUserMock;
@@ -9,7 +18,7 @@ const API_URL = 'http://173.212.214.70:3001/auth/';
 export const signUpUser = (
   signUpUserData: SignUpUserData,
 ): Promise<SignUnUserResponse> => {
-  return axios
+  return api
     .post<SignUnUserResponse>(`${API_URL}signup`, signUpUserData)
     .then((res) => {
       console.log(res.data);
@@ -17,29 +26,31 @@ export const signUpUser = (
     });
 };
 
-export const LoginUser = (email: string, password: string) => {
-  return axios
-    .post(`${API_URL}login`, {
-      email,
-      password,
-    })
+export const loginUser = (
+  signInUserData: SignInUserData,
+): Promise<SignInUserResponse> => {
+  return api
+    .post<SignInUserResponse>(`${API_URL}login`, signInUserData)
     .then((res) => {
       console.log(res.data);
+      return res.data;
     });
 };
 
-export const refreshToken = (refreshToken: string) => {
-  return axios
-    .post(`${API_URL}refresh`, {
-      refreshToken,
-    })
+export const refreshToken = (
+  refreshTokenData: RefreshTokenData,
+): Promise<RefreshTokenResponse> => {
+  return api
+    .post<RefreshTokenResponse>(`${API_URL}refresh`, refreshTokenData)
     .then((res) => {
       console.log(res.data);
+      return res.data;
     });
 };
 
-export const logoutUser = () => {
-  return axios.post(`${API_URL}logout`).then((res) => {
+export const logoutUser = (): Promise<LogoutUserResponse> => {
+  return api.post<LogoutUserResponse>(`${API_URL}logout`).then((res) => {
     console.log(res.data);
+    return res.data;
   });
 };

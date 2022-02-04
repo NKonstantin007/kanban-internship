@@ -4,7 +4,7 @@ import { withDelay } from '../../../utils/time';
 export const signInUserMock = withDelay(
   (data: SignInUserData): SignInUserResponse => {
     return {
-      accessToken: btoa(data.name),
+      accessToken: btoa(data.email),
     };
   },
   1000,

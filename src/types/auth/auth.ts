@@ -1,5 +1,5 @@
 export type SignInUserData = {
-  name: string;
+  email: string;
   password: string;
 };
 
@@ -14,5 +14,18 @@ export type SignUpUserData = {
 };
 
 export type SignUnUserResponse = {
+  success: boolean;
+};
+
+export type RefreshTokenData = {
+  refreshToken: string;
+};
+
+export type RefreshTokenResponse = {
+  token: string;
+  refreshToken: string;
+};
+
+export type LogoutUserResponse = {
   success: boolean;
 };
