@@ -43,7 +43,7 @@ export function RegistrationForm() {
           render={({ field }) => (
             <TextField
               variant="outlined"
-              label="Login"
+              label="E-mail"
               helperText="Enter your e-mail address"
               {...field}
             />
