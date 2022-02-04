@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
-import { RegisterForm } from './RegisterForm';
+import { RegistrationForm } from './RegistrationForm';
 
-export function Register() {
+export function Registration() {
   return (
     <Box
       display="flex"
@@ -11,7 +11,7 @@ export function Register() {
       alignItems="center"
       justifyContent="center"
     >
-      <RegisterForm />
+      <RegistrationForm />
     </Box>
   );
 }

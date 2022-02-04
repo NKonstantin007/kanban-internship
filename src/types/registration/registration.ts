@@ -3,3 +3,7 @@ export type RegisterUserData = {
   login: String;
   password: String;
 };
+
+export type RegisterUserFormData = RegisterUserData & {
+  confirmedPassword: string;
+};

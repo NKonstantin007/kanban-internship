@@ -1,25 +1,21 @@
 import { Typography, Box, Paper, TextField, Button } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import { RegisterUserData } from '@/types/register';
+import { RegisterUserFormData } from '@/types/registration';
 
-const DEFAULT_FORM_VALUES: RegisterUserData = {
+const DEFAULT_FORM_VALUES: RegisterUserFormData = {
   name: '',
   login: '',
   password: '',
+  confirmedPassword: '',
 };
 
-export function RegisterForm() {
+export function RegistrationForm() {
   const { control } = useForm({
     defaultValues: DEFAULT_FORM_VALUES,
   });
 
   const history = useHistory();
-
-  /* const schema = yup.object({
-    name: yup.string().required('name is required'),
-    login: yup.string().email().required('e-mail must be a valid email'),
-    password: yup.string().min(8, 'password must be at least 8 characters long')}) */
 
   return (
     <Paper>
@@ -34,14 +30,14 @@ export function RegisterForm() {
         <Typography align="center" variant="h6">
           Registration
         </Typography>
-        <Controller<RegisterUserData>
+        <Controller<RegisterUserFormData>
           name="name"
           control={control}
           render={({ field }) => (
             <TextField variant="outlined" label="Name" {...field} />
           )}
         />
-        <Controller<RegisterUserData>
+        <Controller<RegisterUserFormData>
           name="login"
           control={control}
           render={({ field }) => (
@@ -53,11 +49,28 @@ export function RegisterForm() {
             />
           )}
         />
-        <Controller<RegisterUserData>
+        <Controller<RegisterUserFormData>
           name="password"
           control={control}
           render={({ field }) => (
-            <TextField variant="outlined" label="Password" {...field} />
+            <TextField
+              variant="outlined"
+              label="Password"
+              type="password"
+              {...field}
+            />
+          )}
+        />
+        <Controller<RegisterUserFormData>
+          name="confirmedPassword"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              variant="outlined"
+              label="Repeat password"
+              type="password"
+              {...field}
+            />
           )}
         />
         <Box display="flex" justifyContent="space-between">
