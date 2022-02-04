@@ -50,7 +50,7 @@ export const SignInForm = () => {
       >
         <Box display="flex" gap={2} alignItems="center" justifyContent="center">
           <Typography variant="h6" align="center">
-            Sign in
+            Login
           </Typography>
           {isSubmitting && <CircularProgress size={20} />}
         </Box>
@@ -69,9 +69,10 @@ export const SignInForm = () => {
                   <TextField
                     error={fieldState.invalid}
                     helperText={fieldState?.error?.message}
-                    label="Login"
+                    label="E-mail"
                     fullWidth
                     disabled={isSubmitting}
+                    type="email"
                     {...field}
                   />
                 )}
@@ -98,7 +99,7 @@ export const SignInForm = () => {
                 <Button
                   variant="text"
                   type="button"
-                  onClick={() => history.push('/register')}
+                  onClick={() => history.push('/signup')}
                 >
                   Sign up for an account
                 </Button>
