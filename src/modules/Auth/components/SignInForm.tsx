@@ -11,6 +11,7 @@ import { useCallback } from 'react';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { SignInUserData } from '@/types/auth';
+import { MAIN_PAGE, SIGNUP_PAGE } from '../../../constants';
 import { useSignInUser } from '../hooks/useSignInUser';
 
 const DEFAULT_FORM_VALUES: SignInUserData = {
@@ -31,7 +32,7 @@ export const SignInForm = () => {
     (data: SignInUserData) => {
       signInUser(data, {
         onSuccess: () => {
-          history.push('/');
+          history.push(MAIN_PAGE);
         },
       });
     },
@@ -99,7 +100,7 @@ export const SignInForm = () => {
                 <Button
                   variant="text"
                   type="button"
-                  onClick={() => history.push('/signup')}
+                  onClick={() => history.push(SIGNUP_PAGE)}
                 >
                   Sign up for an account
                 </Button>
