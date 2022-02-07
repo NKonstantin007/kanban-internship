@@ -1,11 +1,11 @@
 import { Typography, Box, Paper, TextField, Button } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import { RegisterUserFormData } from '@/types/registration';
+import { SignUpCredentialsForm } from '../types';
 
-const DEFAULT_FORM_VALUES: RegisterUserFormData = {
+const DEFAULT_FORM_VALUES: SignUpCredentialsForm = {
   name: '',
-  login: '',
+  email: '',
   password: '',
   confirmedPassword: '',
 };
@@ -30,15 +30,15 @@ export function RegistrationForm() {
         <Typography align="center" variant="h6">
           Registration
         </Typography>
-        <Controller<RegisterUserFormData>
+        <Controller<SignUpCredentialsForm>
           name="name"
           control={control}
           render={({ field }) => (
             <TextField variant="outlined" label="Name" {...field} />
           )}
         />
-        <Controller<RegisterUserFormData>
-          name="login"
+        <Controller<SignUpCredentialsForm>
+          name="email"
           control={control}
           render={({ field }) => (
             <TextField
@@ -49,7 +49,7 @@ export function RegistrationForm() {
             />
           )}
         />
-        <Controller<RegisterUserFormData>
+        <Controller<SignUpCredentialsForm>
           name="password"
           control={control}
           render={({ field }) => (
@@ -61,7 +61,7 @@ export function RegistrationForm() {
             />
           )}
         />
-        <Controller<RegisterUserFormData>
+        <Controller<SignUpCredentialsForm>
           name="confirmedPassword"
           control={control}
           render={({ field }) => (
