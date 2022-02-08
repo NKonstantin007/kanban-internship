@@ -29,6 +29,7 @@ export const loginUser = (
     .post<SignInUserResponse>(`login`, signInUserData)
     .then((res) => {
       localStorage.setItem('token', res.data.token);
+      localStorage.setItem('refreshToken', res.data.refreshToken);
       return res.data;
     });
 };
