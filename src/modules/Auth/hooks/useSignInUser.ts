@@ -1,4 +1,4 @@
-import { useSignInUserMutation } from '../../../queries/auth';
+import { useSignInUserMutation } from '@/queries/auth';
 
 export function useSignInUser() {
   return useSignInUserMutation({

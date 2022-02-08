@@ -15,6 +15,9 @@
     "import/resolver": {
       "node": {
         "extensions": [".js", ".ts", ".tsx", ".json"]
+      },
+      "typescript": {
+        "project": "."
       }
     },
     "react": { "version": "detect" }

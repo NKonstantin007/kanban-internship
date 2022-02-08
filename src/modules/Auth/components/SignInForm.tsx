@@ -10,7 +10,7 @@ import {
 import { useCallback } from 'react';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
 import { useHistory } from 'react-router';
-import { SignInUserData } from '../../../types/auth';
+import { SignInUserData } from '@/types/auth';
 import { useSignInUser } from '../hooks/useSignInUser';
 
 const DEFAULT_FORM_VALUES: SignInUserData = {

@@ -1,4 +1,4 @@
-import { Lambda, ToAsyncFn } from '../../types/utility/utility';
+import { Lambda, ToAsyncFn } from '@/types/utility/utility';
 
 export function wait(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(() => resolve(), ms));
