@@ -14,7 +14,7 @@ import { SignInUserData } from '../../../types/auth';
 import { useSignInUser } from '../hooks/useSignInUser';
 
 const DEFAULT_FORM_VALUES: SignInUserData = {
-  name: '',
+  email: '',
   password: '',
 };
 
