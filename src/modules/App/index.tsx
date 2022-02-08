@@ -3,8 +3,9 @@ import { hot } from 'react-hot-loader/root';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import Login from '../Auth/components/Login';
-import SignUp from '../Auth/components/SignUp';
+import { Login } from '../Auth/components/Login';
+import { Navbar } from '../Auth/components/Navbar';
+import { SignUp } from '../Auth/components/SignUp';
 import { Home } from '../Home';
 
 const queryClient = new QueryClient();
@@ -30,8 +31,9 @@ function App() {
             <Router>
               <Switch>
                 <Route exact path="/" component={Home} />
-                <Route path="/auth" component={SignUp} />
+                <Route exact path="/auth" component={SignUp} />
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/nav" component={Navbar} />
               </Switch>
             </Router>
           </Box>
