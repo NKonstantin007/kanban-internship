@@ -1,4 +1,4 @@
-name: lint-staged
+name: lint
 
 on:
   push:
@@ -25,5 +25,5 @@ jobs:
       - name: Install Node.js dependencies
         run: yarn install
 
-      - name: Run lint-staged
-        run: yarn lint-staged
+      - name: Run lint
+        run: yarn lint "src/**/*.{ts,tsx,json}"
