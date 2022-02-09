@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import { loginUser } from '../../../data/auth';
@@ -13,10 +13,12 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handlePassword = (e) => setPassword(e.target.value);
+  const handleEmail = (e: { target: { value: SetStateAction<string> } }) =>
+    setEmail(e.target.value);
+  const handlePassword = (e: { target: { value: SetStateAction<string> } }) =>
+    setPassword(e.target.value);
 
-  const handlerSubmit = (e) => {
+  const handlerSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     loginUser({ password, email });
     history.push('/');

@@ -64,7 +64,7 @@ export const SignInForm = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <Box display="flex" flexDirection="column" gap={4}>
               <Controller<SignInUserData>
-                name="name"
+                name="email"
                 render={({ field, fieldState }) => (
                   <TextField
                     error={fieldState.invalid}
