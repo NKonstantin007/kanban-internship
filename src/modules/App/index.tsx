@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { Auth } from '../Auth';
 import { Home } from '../Home';
+import { Registration } from '../Registration';
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/auth" component={Auth} />
+              <Route path="/signup" component={Registration} />
             </Switch>
           </Router>
         </ThemeProvider>
