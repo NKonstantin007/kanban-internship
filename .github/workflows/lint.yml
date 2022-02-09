@@ -26,4 +26,4 @@ jobs:
         run: yarn install
 
       - name: Run lint
-        run: yarn lint "src/**/*.{ts,tsx,json}"
+        run:  yarn eslint "./src/**/*.{jsx,jsx,ts,tsx,json}"
