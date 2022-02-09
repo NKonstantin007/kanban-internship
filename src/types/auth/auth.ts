@@ -4,7 +4,8 @@ export type SignInUserData = {
 };
 
 export type SignInUserResponse = {
-  accessToken: string;
+  token: string;
+  refreshToken: string;
 };
 
 export type SignUpUserData = {
@@ -13,7 +14,7 @@ export type SignUpUserData = {
   password: string;
 };
 
-export type SignUnUserResponse = {
+export type SignUpUserResponse = {
   success: boolean;
 };
 

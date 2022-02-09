@@ -1,36 +1,23 @@
 import { UseMutationOptions, useMutation } from 'react-query';
-import {
-  signInUser,
-  signUpUser,
-  refreshToken,
-  logoutUser,
-} from '../../data/auth';
+import { loginUser, signUpUser, logoutUser } from '../../data/auth';
 import {
   SignInUserData,
   SignInUserResponse,
-  SignUnUserResponse,
+  SignUpUserResponse,
   SignUpUserData,
-  RefreshTokenData,
-  RefreshTokenResponse,
   LogoutUserResponse,
 } from '../../types/auth';
 
 export function useSignInUserMutation(
   options?: UseMutationOptions<SignInUserResponse, Error, SignInUserData>,
 ) {
-  return useMutation('sign-in-user-mutation', signInUser, options);
+  return useMutation('sign-in-user-mutation', loginUser, options);
 }
 
 export function useSignUnUserMutation(
-  options?: UseMutationOptions<SignUnUserResponse, Error, SignUpUserData>,
+  options?: UseMutationOptions<SignUpUserResponse, Error, SignUpUserData>,
 ) {
   return useMutation('sign-in-user-mutation', signUpUser, options);
-}
-
-export function useRefreshTokenMutation(
-  options?: UseMutationOptions<RefreshTokenResponse, Error, RefreshTokenData>,
-) {
-  return useMutation('sign-in-user-mutation', refreshToken, options);
 }
 
 export function useLogoutUserMutation(

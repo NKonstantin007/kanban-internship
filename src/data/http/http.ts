@@ -1,17 +1,17 @@
 import axios from 'axios';
 import { refreshToken as refreshTokenService } from '../auth/authServices';
 
-const axiosInstance = axios.create({
-  baseURL: 'http://173.212.214.70:3001/auth/',
+export const http = axios.create({
+  baseURL: 'http://173.212.214.70:3001',
 });
 
-axiosInstance.interceptors.request.use(
+http.interceptors.request.use(
   (config) => {
     return {
       ...config,
       headers: {
         ...config.headers,
-        Authorization: `Baerer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     };
   },
@@ -20,7 +20,7 @@ axiosInstance.interceptors.request.use(
   },
 );
 
-axiosInstance.interceptors.response.use(
+http.interceptors.response.use(
   (config) => {
     return config;
   },
@@ -29,14 +29,12 @@ axiosInstance.interceptors.response.use(
       return Promise.reject(error);
     }
     const refreshToken = localStorage.getItem('refreshToken');
-    if (!refreshToken || error.response?.status === 401) {
+    if (!refreshToken || error.response?.status !== 401) {
       return Promise.reject(error);
     }
     const res = await refreshTokenService({ refreshToken });
     localStorage.setItem('token', res.token);
     localStorage.setItem('refreshToken', res.refreshToken);
-    return axiosInstance(error.config);
+    return http(error.config);
   },
 );
-
-export default axiosInstance;

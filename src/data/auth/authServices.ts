@@ -1,52 +1,49 @@
 import {
   SignUpUserData,
-  SignUnUserResponse,
+  SignUpUserResponse,
   SignInUserData,
   SignInUserResponse,
   RefreshTokenData,
   RefreshTokenResponse,
   LogoutUserResponse,
 } from '../../types/auth/auth';
-import axiosInstance from '../http/http';
-import { signInUserMock } from './__mocks/authServicesMocks';
+import { http } from '../http/http';
 
-export const signInUser = signInUserMock;
-
-export const signUpUser = (
+export const signUpUser = async (
   signUpUserData: SignUpUserData,
-): Promise<SignUnUserResponse> => {
-  return axiosInstance
-    .post<SignUnUserResponse>(`signup`, signUpUserData)
-    .then((res) => {
-      return res.data;
-    });
+): Promise<SignUpUserResponse> => {
+  const { data } = await http.post<SignUpUserResponse>(
+    `/auth/signup`,
+    signUpUserData,
+  );
+  return data;
 };
 
-export const loginUser = (
+export const loginUser = async (
   signInUserData: SignInUserData,
 ): Promise<SignInUserResponse> => {
-  return axiosInstance
-    .post<SignInUserResponse>(`login`, signInUserData)
-    .then((res) => {
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('refreshToken', res.data.refreshToken);
-      return res.data;
-    });
+  const { data } = await http.post<SignInUserResponse>(
+    `/auth/login`,
+    signInUserData,
+  );
+  localStorage.setItem('token', data.token);
+  localStorage.setItem('refreshToken', data.refreshToken);
+  return data;
 };
 
-export const refreshToken = (
+export const refreshToken = async (
   refreshTokenData: RefreshTokenData,
 ): Promise<RefreshTokenResponse> => {
-  return axiosInstance
-    .post<RefreshTokenResponse>(`refresh`, refreshTokenData)
-    .then((res) => {
-      return res.data;
-    });
+  const { data } = await http.post<RefreshTokenResponse>(
+    `/auth/refresh`,
+    refreshTokenData,
+  );
+  return data;
 };
 
-export const logoutUser = (): Promise<LogoutUserResponse> => {
-  return axiosInstance.post<LogoutUserResponse>(`logout`).then((res) => {
-    localStorage.removeItem('user');
-    return res.data;
-  });
+export const logoutUser = async (): Promise<LogoutUserResponse> => {
+  const { data } = await http.post<LogoutUserResponse>(`/auth/logout`);
+  localStorage.removeItem('token');
+  localStorage.removeItem('refreshToken');
+  return data;
 };
