@@ -1,7 +1,7 @@
-import { useSignUnUserMutation } from '../../../queries/auth';
+import { useSignUpUserMutation } from '../../../queries/auth';
 
 export function useSignUpUser() {
-  return useSignUnUserMutation({
+  return useSignUpUserMutation({
     onSuccess: (data) => {
       // Store a token to the local storage
       console.log(data);

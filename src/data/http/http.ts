@@ -32,9 +32,13 @@ http.interceptors.response.use(
     if (!refreshToken || error.response?.status !== 401) {
       return Promise.reject(error);
     }
-    const res = await refreshTokenService({ refreshToken });
-    localStorage.setItem('token', res.token);
-    localStorage.setItem('refreshToken', res.refreshToken);
-    return http(error.config);
+    try {
+      const res = await refreshTokenService({ refreshToken });
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('refreshToken', res.refreshToken);
+      return http(error.config);
+    } catch (refreshError) {
+      return Promise.reject(refreshError);
+    }
   },
 );

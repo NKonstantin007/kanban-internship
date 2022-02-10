@@ -14,14 +14,14 @@ export function useSignInUserMutation(
   return useMutation('sign-in-user-mutation', loginUser, options);
 }
 
-export function useSignUnUserMutation(
+export function useSignUpUserMutation(
   options?: UseMutationOptions<SignUpUserResponse, Error, SignUpUserData>,
 ) {
-  return useMutation('sign-in-user-mutation', signUpUser, options);
+  return useMutation('sign-up-user-mutation', signUpUser, options);
 }
 
 export function useLogoutUserMutation(
   options?: UseMutationOptions<LogoutUserResponse, Error>,
 ) {
-  return useMutation('sign-in-user-mutation', logoutUser, options);
+  return useMutation('logout-user-mutation', logoutUser, options);
 }
