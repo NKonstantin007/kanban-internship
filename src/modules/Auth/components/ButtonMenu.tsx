@@ -1,4 +1,3 @@
-import { makeStyles } from '@material-ui/core/styles';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Logout from '@mui/icons-material/Logout';
 import Settings from '@mui/icons-material/Settings';
@@ -8,6 +7,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
+import { makeStyles } from '@mui/styles';
 import * as React from 'react';
 
 const useStyles = makeStyles(() => ({
