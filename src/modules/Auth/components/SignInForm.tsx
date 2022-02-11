@@ -15,7 +15,7 @@ import { MAIN_PAGE, SIGNUP_PAGE } from '../../../constants';
 import { useSignInUser } from '../hooks/useSignInUser';
 
 const DEFAULT_FORM_VALUES: SignInUserData = {
-  name: '',
+  email: '',
   password: '',
 };
 
@@ -65,7 +65,7 @@ export const SignInForm = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <Box display="flex" flexDirection="column" gap={4}>
               <Controller<SignInUserData>
-                name="name"
+                name="email"
                 render={({ field, fieldState }) => (
                   <TextField
                     error={fieldState.invalid}

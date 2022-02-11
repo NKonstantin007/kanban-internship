@@ -2,9 +2,8 @@ import { useSignInUserMutation } from '@/queries/auth';
 
 export function useSignInUser() {
   return useSignInUserMutation({
-    onSuccess: (data) => {
+    onSuccess: () => {
       // Store a token to the local storage
-      console.log(data);
     },
   });
 }

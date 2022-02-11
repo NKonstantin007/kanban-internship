@@ -1,8 +1,32 @@
 export type SignInUserData = {
-  name: string;
+  email: string;
   password: string;
 };
 
 export type SignInUserResponse = {
-  accessToken: string;
+  token: string;
+  refreshToken: string;
+};
+
+export type SignUpUserData = {
+  email: string;
+  name: string;
+  password: string;
+};
+
+export type SignUpUserResponse = {
+  success: boolean;
+};
+
+export type RefreshTokenData = {
+  refreshToken: string;
+};
+
+export type RefreshTokenResponse = {
+  token: string;
+  refreshToken: string;
+};
+
+export type LogoutUserResponse = {
+  success: boolean;
 };
