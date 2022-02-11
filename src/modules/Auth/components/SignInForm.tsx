@@ -6,15 +6,14 @@ import {
   TextField,
   Button,
   Stack,
-  CircularProgress,
 } from '@mui/material';
-import { useCallback } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
-import { MAIN_PAGE, SIGNUP_PAGE } from '@/constants/routes';
+// import { HOME_PAGE, SIGNUP_PAGE } from '@/constants/routes';
+import { loginUser } from '@/data/auth';
 import { SignInUserData } from '@/types/auth';
-import { useSignInUser } from '../hooks/useSignInUser';
+import { HOME_PAGE, SIGNUP_PAGE } from '../../../constants/routes';
 
 const DEFAULT_FORM_VALUES: SignInUserData = {
   email: '',
@@ -37,18 +36,9 @@ export const SignInForm = () => {
 
   const history = useHistory();
 
-  const { mutate: signInUser, isLoading: isSubmitting } = useSignInUser();
-
-  const onSubmit = useCallback(
-    (data: SignInUserData) => {
-      signInUser(data, {
-        onSuccess: () => {
-          history.push(MAIN_PAGE);
-        },
-      });
-    },
-    [history, signInUser],
-  );
+  function signIn(data: SignInUserData): void {
+    loginUser(data).then(() => history.push(HOME_PAGE));
+  }
 
   return (
     <Paper variant="outlined">
@@ -64,9 +54,8 @@ export const SignInForm = () => {
           <Typography variant="h6" align="center">
             Login
           </Typography>
-          {isSubmitting && <CircularProgress size={20} />}
         </Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(signIn)}>
           <Box display="flex" flexDirection="column" gap={4}>
             <Controller<SignInUserData>
               name="email"
@@ -77,7 +66,6 @@ export const SignInForm = () => {
                   helperText={fieldState?.error?.message}
                   label="E-mail"
                   fullWidth
-                  disabled={isSubmitting}
                   type="email"
                   {...field}
                 />
@@ -93,7 +81,6 @@ export const SignInForm = () => {
                   label="Password"
                   type="password"
                   fullWidth
-                  disabled={isSubmitting}
                   {...field}
                 />
               )}
@@ -111,11 +98,7 @@ export const SignInForm = () => {
                 Sign up for an account
               </Button>
               <Stack direction="row" spacing={2}>
-                <Button
-                  variant="contained"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
+                <Button variant="contained" type="submit">
                   Log In
                 </Button>
               </Stack>

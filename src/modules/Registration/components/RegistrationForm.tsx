@@ -3,7 +3,10 @@ import { Typography, Box, Paper, TextField, Button } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
-import { AUTH_PAGE } from '@/constants/routes';
+import { toSignUpCredentials } from '@/api-types/signUpCredentials';
+// import { AUTH_PAGE, HOME_PAGE } from '@/constants/routes';
+import { signUpUser } from '@/data/auth';
+import { AUTH_PAGE, HOME_PAGE } from '../../../constants/routes';
 import {
   NAME_REQUIRED,
   EMAIL_REQUIRED,
@@ -14,6 +17,7 @@ import {
   PASSWORD_WRONG_LENGTH,
   INVALID_CHARACTERS,
 } from '../constants';
+// import { useRegistrationError } from '../hooks/useRegistrationError';
 import { SignUpCredentialsForm } from '../types';
 
 const DEFAULT_FORM_VALUES: SignUpCredentialsForm = {
@@ -22,11 +26,6 @@ const DEFAULT_FORM_VALUES: SignUpCredentialsForm = {
   password: '',
   confirmedPassword: '',
 };
-
-function submit() {
-  // Для примера
-  setTimeout(() => console.log('Сообщение отправлено'), 1000);
-}
 
 export function RegistrationForm() {
   const registrationFormScheme = yup.object({
@@ -57,9 +56,16 @@ export function RegistrationForm() {
 
   const history = useHistory();
 
+  /* const [registrationError, setRegistrationError, registrationErrorText] =
+    useRegistrationError(); */
+
+  function signUp(data: SignUpCredentialsForm): void {
+    signUpUser(toSignUpCredentials(data)).then(() => history.push(HOME_PAGE));
+  }
+
   return (
     <Paper>
-      <form onSubmit={handleSubmit(submit)}>
+      <form onSubmit={handleSubmit(signUp)}>
         <Box
           display="flex"
           flexDirection="column"
@@ -71,6 +77,14 @@ export function RegistrationForm() {
           <Typography align="center" variant="h6">
             Registration
           </Typography>
+          {/* <Typography
+            color="#ff5252"
+            sx={{
+              display: registrationError === 'sendError' ? 'inline' : 'none',
+            }}
+          >
+            {registrationErrorText}
+          </Typography> */}
           <Controller<SignUpCredentialsForm>
             name="name"
             control={control}
