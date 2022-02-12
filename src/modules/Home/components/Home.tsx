@@ -7,11 +7,14 @@ import {
   Stack,
 } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
-// import { getProjectList } from '@/data/projects';
-// import { useProjectList } from '../hooks/useProjectList';
+import { getProjectList } from '@/data/projects';
+import { ProjectData } from '@/types/projects';
+import { useProjectList } from '../hooks/useProjectList';
+import { AddNewProject } from './AddNewProject';
+import { ProjectInfo } from './ProjectInfo';
 
 export function Home() {
-  // const [projectsList, setProjectsList] = useProjectList(getProjectList());
+  const [projectsList] = useProjectList(getProjectList());
 
   return (
     <Box>
@@ -42,12 +45,21 @@ export function Home() {
           </Box>
         </Paper>
       </Box>
-      <Container maxWidth="lg">
-        <Paper variant="outlined" square>
-          <Typography variant="h6" align="center">
+      <Container maxWidth="md">
+        <Paper variant="outlined" sx={{ px: '5px' }}>
+          <Typography variant="h5" align="center" py={5}>
             My Projects
           </Typography>
-          projectsList.map(...)
+          <Stack direction="row" flexWrap="wrap">
+            <AddNewProject />
+            {projectsList.map((item: ProjectData) => (
+              <ProjectInfo
+                key={item.id}
+                name={item.name}
+                description={item.description}
+              />
+            ))}
+          </Stack>
         </Paper>
       </Container>
     </Box>
