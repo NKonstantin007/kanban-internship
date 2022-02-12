@@ -3,7 +3,7 @@ import { hot } from 'react-hot-loader/root';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import { Auth } from '../Auth';
+import { Auth } from '../Auth/components/Auth';
 import { Home } from '../Home';
 import { Registration } from '../Registration';
 
