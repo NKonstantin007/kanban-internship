@@ -1,31 +1,55 @@
-import { Box, Paper } from '@mui/material';
-import { Avatar } from './Avatar';
-import { ResetText } from './ResetText';
-import { TextInfo } from './TextInfo';
-import { TextInput } from './TextInput';
+import {
+  Box,
+  Paper,
+  Typography,
+  Container,
+  Avatar,
+  Stack,
+} from '@mui/material';
+import { deepOrange } from '@mui/material/colors';
+// import { getProjectList } from '@/data/projects';
+// import { useProjectList } from '../hooks/useProjectList';
 
 export function Home() {
+  // const [projectsList, setProjectsList] = useProjectList(getProjectList());
+
   return (
-    <Box
-      display="flex"
-      width="100%"
-      height="100vh"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-    >
-      <Box position="absolute" top="10px" right="10px">
-        <Avatar />
-      </Box>
-      <Paper variant="outlined">
-        <Box px={8} py={6}>
-          <Box display="flex" gap={2}>
-            <TextInput />
-            <ResetText />
+    <Box>
+      <Box height={40} sx={{ paddingBottom: 20 }}>
+        <Paper variant="outlined" sx={{ height: 40 }} square>
+          <Box
+            px={5}
+            py={1.5}
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+          >
+            <Box>(Logo) Asperiod</Box>
+            <Stack direction="row" spacing={2}>
+              <Avatar
+                alt="Boris"
+                sx={{
+                  bgcolor: deepOrange[500],
+                  width: 24,
+                  height: 24,
+                  fontSize: 14,
+                }}
+              >
+                B
+              </Avatar>
+              <Box>Boris</Box>
+            </Stack>
           </Box>
-          <TextInfo />
-        </Box>
-      </Paper>
+        </Paper>
+      </Box>
+      <Container maxWidth="lg">
+        <Paper variant="outlined" square>
+          <Typography variant="h6" align="center">
+            My Projects
+          </Typography>
+          projectsList.map(...)
+        </Paper>
+      </Container>
     </Box>
   );
 }
