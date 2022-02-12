@@ -1,6 +1,5 @@
 import axios from 'axios';
-// import { BASE_URL } from '@/constants/base';
-import { BASE_URL } from '../../constants/base';
+import { BASE_URL } from '@/constants/base';
 import { refreshToken as refreshTokenService } from '../auth/authServices';
 
 export const http = axios.create({

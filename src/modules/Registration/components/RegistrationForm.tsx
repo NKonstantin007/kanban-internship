@@ -4,9 +4,9 @@ import { useForm, Controller } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 import { toSignUpCredentials } from '@/api-types/signUpCredentials';
-// import { AUTH_PAGE, HOME_PAGE } from '@/constants/routes';
+import { AUTH_PAGE } from '@/constants/routes';
 import { signUpUser } from '@/data/auth';
-import { AUTH_PAGE, HOME_PAGE } from '../../../constants/routes';
+import { useAuthError } from '@/hooks/useAuthError';
 import {
   NAME_REQUIRED,
   EMAIL_REQUIRED,
@@ -17,7 +17,6 @@ import {
   PASSWORD_WRONG_LENGTH,
   INVALID_CHARACTERS,
 } from '../constants';
-// import { useRegistrationError } from '../hooks/useRegistrationError';
 import { SignUpCredentialsForm } from '../types';
 
 const DEFAULT_FORM_VALUES: SignUpCredentialsForm = {
@@ -56,11 +55,14 @@ export function RegistrationForm() {
 
   const history = useHistory();
 
-  /* const [registrationError, setRegistrationError, registrationErrorText] =
-    useRegistrationError(); */
+  const [registrationError, setRegistrationError, registrationErrorText] =
+    useAuthError();
 
   function signUp(data: SignUpCredentialsForm): void {
-    signUpUser(toSignUpCredentials(data)).then(() => history.push(HOME_PAGE));
+    signUpUser(toSignUpCredentials(data)).then(
+      () => history.push(AUTH_PAGE),
+      () => setRegistrationError('sendError'),
+    );
   }
 
   return (
@@ -77,14 +79,14 @@ export function RegistrationForm() {
           <Typography align="center" variant="h6">
             Registration
           </Typography>
-          {/* <Typography
+          <Typography
             color="#ff5252"
             sx={{
-              display: registrationError === 'sendError' ? 'inline' : 'none',
+              display: registrationError !== 'noError' ? 'inline' : 'none',
             }}
           >
             {registrationErrorText}
-          </Typography> */}
+          </Typography>
           <Controller<SignUpCredentialsForm>
             name="name"
             control={control}

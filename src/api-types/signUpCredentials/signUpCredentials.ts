@@ -6,5 +6,9 @@ import { SignUpCredentials } from '@/types/registration';
 export function toSignUpCredentials(
   SignUpCredentialsData: SignUpCredentialsForm,
 ): SignUpCredentials {
-  return <SignUpCredentials>SignUpCredentialsData;
+  return {
+    name: SignUpCredentialsData.name,
+    email: SignUpCredentialsData.email,
+    password: SignUpCredentialsData.password,
+  };
 }

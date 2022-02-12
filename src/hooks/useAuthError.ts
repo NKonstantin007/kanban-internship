@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-/* Ошибки: null, sendError (ошибка отправки), alreadyHaveAccountError (уже есть аккаунт) */
-export function useRegistrationError() {
-  const [registrationError, setRegistrationError] = useState(null);
+export function useAuthError(): [string, React.Dispatch<string>, string] {
+  const [registrationError, setRegistrationError]: [
+    string,
+    React.Dispatch<string>,
+  ] = useState('noError');
   let registrationErrorText = '';
-  if (registrationError == null) {
+  if (registrationError === 'noError') {
     registrationErrorText = '';
   }
   if (registrationError === 'sendError') {

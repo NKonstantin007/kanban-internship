@@ -10,10 +10,10 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
-// import { HOME_PAGE, SIGNUP_PAGE } from '@/constants/routes';
+import { HOME_PAGE, SIGNUP_PAGE } from '@/constants/routes';
 import { loginUser } from '@/data/auth';
+import { useAuthError } from '@/hooks/useAuthError';
 import { SignInUserData } from '@/types/auth';
-import { HOME_PAGE, SIGNUP_PAGE } from '../../../constants/routes';
 
 const DEFAULT_FORM_VALUES: SignInUserData = {
   email: '',
@@ -36,8 +36,13 @@ export const SignInForm = () => {
 
   const history = useHistory();
 
+  const [loginError, setLoginError, loginErrorText] = useAuthError();
+
   function signIn(data: SignInUserData): void {
-    loginUser(data).then(() => history.push(HOME_PAGE));
+    loginUser(data).then(
+      () => history.push(HOME_PAGE),
+      () => setLoginError('sendError'),
+    );
   }
 
   return (
@@ -53,6 +58,14 @@ export const SignInForm = () => {
         <Box display="flex" gap={2} alignItems="center" justifyContent="center">
           <Typography variant="h6" align="center">
             Login
+          </Typography>
+          <Typography
+            color="#ff5252"
+            sx={{
+              display: loginError !== 'noError' ? 'inline' : 'none',
+            }}
+          >
+            {loginErrorText}
           </Typography>
         </Box>
         <form onSubmit={handleSubmit(signIn)}>
