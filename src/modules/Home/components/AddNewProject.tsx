@@ -9,7 +9,7 @@ import {
 import { green } from '@mui/material/colors';
 import SvgIcon from '@mui/material/SvgIcon';
 
-export function AddNewProject() {
+export function AddNewProject({ onClick }: { onClick: Function }) {
   return (
     <Card
       variant="outlined"
@@ -19,13 +19,13 @@ export function AddNewProject() {
         flexShrink: 0,
       }}
     >
-      <CardActionArea sx={{ height: '100%' }}>
+      <CardActionArea sx={{ height: '100%' }} onClick={() => onClick()}>
         <CardContent>
           <Stack direction="row" spacing={2}>
             <SvgIcon sx={{ color: green[400] }}>
               <AddCircleIcon />
             </SvgIcon>
-            <Typography>Add a new project</Typography>
+            <Typography>Add a project</Typography>
           </Stack>
         </CardContent>
       </CardActionArea>

@@ -5,16 +5,14 @@ import {
   Container,
   Avatar,
   Stack,
-  Dialog,
-  Button,
-  DialogContent,
-  DialogActions,
 } from '@mui/material';
-import { deepOrange, red } from '@mui/material/colors';
+import { deepOrange } from '@mui/material/colors';
 import { getProjectList } from '@/data/projects';
 import { ProjectData } from '@/types/projects';
-import { useDeleteState, useProjectList } from '../hooks';
+import { useDeleteState, useProjectList, useAddProjectForm } from '../hooks';
+import { AddFormDialog } from './AddFormDialog';
 import { AddNewProject } from './AddNewProject';
+import { DeleteDialog } from './DeleteDialog';
 import { ProjectInfo } from './ProjectInfo';
 
 export function Home() {
@@ -32,6 +30,22 @@ export function Home() {
   function clickDelete(projectId: string): void {
     setDeletableProjectId(projectId);
     setModalDeleteVisible(true);
+  }
+
+  const [
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    addFormData,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    setAddFormData,
+    addFormModalVisible,
+    setAddFormModalVisible,
+  ] = useAddProjectForm();
+
+  type FormHTMLElement = React.RefObject<HTMLFormElement>;
+
+  function onClickSubmit(addForm: FormHTMLElement): void {
+    addForm.current?.submit();
+    setAddFormModalVisible(false);
   }
 
   return (
@@ -69,7 +83,7 @@ export function Home() {
             My Projects
           </Typography>
           <Stack direction="row" flexWrap="wrap">
-            <AddNewProject />
+            <AddNewProject onClick={() => setAddFormModalVisible(true)} />
             {projectsList.map((item: ProjectData) => (
               <ProjectInfo
                 key={item.id}
@@ -81,22 +95,19 @@ export function Home() {
           </Stack>
         </Paper>
       </Container>
-      <Dialog
+      <DeleteDialog
         open={deleteModalVisible}
-        onClose={() => setModalDeleteVisible(false)}
-      >
-        <DialogContent>Delete the project?</DialogContent>
-        <DialogActions>
-          <Button onClick={() => setModalDeleteVisible(false)}>Cancel</Button>
-          <Button
-            onClick={() => setModalDeleteVisible(false)}
-            autoFocus
-            sx={{ color: red[500] }}
-          >
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
+        handleClose={() => setModalDeleteVisible(false)}
+        onClickDeleteButton={() => setModalDeleteVisible(false)}
+      />
+      <AddFormDialog
+        open={addFormModalVisible}
+        handleClose={() => setAddFormModalVisible(false)}
+        onSubmit={(/* data: ProjectFormData */) => null}
+        onClickSubmitButton={(addProjectForm: FormHTMLElement) =>
+          onClickSubmit(addProjectForm)
+        }
+      />
     </Box>
   );
 }
