@@ -17,9 +17,9 @@ export const useCreateUser = ({ onError }: UseCreateUserParams) => {
     createUser: useCallback(
       (credentials: SignUpCredentialsForm) => {
         // TODO: it should be moved to service's level
-        const signUpCredentialsApiModel = toSignUpCredentials(credentials);
+        const signUpCredentials = toSignUpCredentials(credentials);
 
-        return mutate(signUpCredentialsApiModel, {
+        return mutate(signUpCredentials, {
           onSuccess: () => {
             history.push(AUTH_PAGE);
           },
