@@ -11,9 +11,11 @@ import { grey, red } from '@mui/material/colors';
 export function ProjectInfo({
   name,
   description,
+  onDeleteClick,
 }: {
   name: string;
   description: string;
+  onDeleteClick: Function;
 }) {
   return (
     <Card
@@ -33,7 +35,11 @@ export function ProjectInfo({
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" sx={{ color: red[500], py: '2px' }}>
+        <Button
+          size="small"
+          sx={{ color: red[500], py: '2px' }}
+          onClick={() => onDeleteClick()}
+        >
           DELETE
         </Button>
       </CardActions>

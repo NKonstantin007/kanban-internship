@@ -25,7 +25,7 @@ export function AddNewProject() {
             <SvgIcon sx={{ color: green[400] }}>
               <AddCircleIcon />
             </SvgIcon>
-            <Typography>Add new project</Typography>
+            <Typography>Add a new project</Typography>
           </Stack>
         </CardContent>
       </CardActionArea>

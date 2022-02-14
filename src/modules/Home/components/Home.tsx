@@ -5,16 +5,34 @@ import {
   Container,
   Avatar,
   Stack,
+  Dialog,
+  Button,
+  DialogContent,
+  DialogActions,
 } from '@mui/material';
-import { deepOrange } from '@mui/material/colors';
+import { deepOrange, red } from '@mui/material/colors';
 import { getProjectList } from '@/data/projects';
 import { ProjectData } from '@/types/projects';
-import { useProjectList } from '../hooks/useProjectList';
+import { useDeleteState, useProjectList } from '../hooks';
 import { AddNewProject } from './AddNewProject';
 import { ProjectInfo } from './ProjectInfo';
 
 export function Home() {
-  const [projectsList] = useProjectList(getProjectList());
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [projectsList, _] = useProjectList(getProjectList());
+
+  const [
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    deletableProjectId,
+    setDeletableProjectId,
+    deleteModalVisible,
+    setModalDeleteVisible,
+  ] = useDeleteState();
+
+  function clickDelete(projectId: string): void {
+    setDeletableProjectId(projectId);
+    setModalDeleteVisible(true);
+  }
 
   return (
     <Box>
@@ -57,11 +75,28 @@ export function Home() {
                 key={item.id}
                 name={item.name}
                 description={item.description}
+                onDeleteClick={() => clickDelete(item.id)}
               />
             ))}
           </Stack>
         </Paper>
       </Container>
+      <Dialog
+        open={deleteModalVisible}
+        onClose={() => setModalDeleteVisible(false)}
+      >
+        <DialogContent>Delete the project?</DialogContent>
+        <DialogActions>
+          <Button onClick={() => setModalDeleteVisible(false)}>Cancel</Button>
+          <Button
+            onClick={() => setModalDeleteVisible(false)}
+            autoFocus
+            sx={{ color: red[500] }}
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
