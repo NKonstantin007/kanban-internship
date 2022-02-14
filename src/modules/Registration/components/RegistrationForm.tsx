@@ -1,11 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Typography, Box, Paper, TextField, Button } from '@mui/material';
+import {
+  Typography,
+  Box,
+  Paper,
+  TextField,
+  Button,
+  LinearProgress,
+} from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
-import { toSignUpCredentials } from '@/api-types/signUpCredentials';
 import { AUTH_PAGE } from '@/constants/routes';
-import { signUpUser } from '@/data/auth';
 import { useAuthError } from '@/hooks/useAuthError';
 import {
   NAME_REQUIRED,
@@ -17,6 +22,7 @@ import {
   PASSWORD_WRONG_LENGTH,
   INVALID_CHARACTERS,
 } from '../constants';
+import { useCreateUser } from '../hooks/useCreateUser';
 import { SignUpCredentialsForm } from '../types';
 
 const DEFAULT_FORM_VALUES: SignUpCredentialsForm = {
@@ -58,16 +64,15 @@ export function RegistrationForm() {
   const [registrationError, setRegistrationError, registrationErrorText] =
     useAuthError();
 
-  function signUp(data: SignUpCredentialsForm): void {
-    signUpUser(toSignUpCredentials(data)).then(
-      () => history.push(AUTH_PAGE),
-      () => setRegistrationError('sendError'),
-    );
-  }
+  // TODO: error handling should be moved to services' level
+  // TODO: server returns status 200 on error -> this error handling doesn't work
+  const { createUser, isLoading: isLoadingCreateUser } = useCreateUser({
+    onError: () => () => setRegistrationError('sendError'),
+  });
 
   return (
     <Paper>
-      <form onSubmit={handleSubmit(signUp)}>
+      <form onSubmit={handleSubmit(createUser)}>
         <Box
           display="flex"
           flexDirection="column"
@@ -79,6 +84,7 @@ export function RegistrationForm() {
           <Typography align="center" variant="h6">
             Registration
           </Typography>
+          <Box>{isLoadingCreateUser && <LinearProgress />}</Box>
           <Typography
             color="#ff5252"
             sx={{
