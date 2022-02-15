@@ -7,17 +7,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
-import { makeStyles } from '@mui/styles';
 import * as React from 'react';
 
-const useStyles = makeStyles(() => ({
-  logOut: {
-    color: '#FF0000',
-  },
-}));
-
 export const ButtonMenu = () => {
-  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -83,9 +75,9 @@ export const ButtonMenu = () => {
           </ListItemIcon>
           Change your photo
         </MenuItem>
-        <MenuItem className={classes.logOut}>
+        <MenuItem sx={{ color: '#FF0000' }}>
           <ListItemIcon>
-            <Logout fontSize="small" className={classes.logOut} />
+            <Logout fontSize="small" sx={{ color: '#FF0000' }} />
           </ListItemIcon>
           Logout
         </MenuItem>
