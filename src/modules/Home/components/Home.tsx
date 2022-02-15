@@ -1,8 +1,6 @@
-import { Box, Paper } from '@mui/material';
+import { Box } from '@mui/material';
 import { Avatar } from './Avatar';
-import { ResetText } from './ResetText';
-import { TextInfo } from './TextInfo';
-import { TextInput } from './TextInput';
+import { Projects } from './Projects';
 
 export function Home() {
   return (
@@ -17,15 +15,7 @@ export function Home() {
       <Box position="absolute" top="10px" right="10px">
         <Avatar />
       </Box>
-      <Paper variant="outlined">
-        <Box px={8} py={6}>
-          <Box display="flex" gap={2}>
-            <TextInput />
-            <ResetText />
-          </Box>
-          <TextInfo />
-        </Box>
-      </Paper>
+      <Projects />
     </Box>
   );
 }
