@@ -156,5 +156,60 @@
         "leadingUnderscore": "allow"
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/api-types/**/*.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "leadingUnderscore": "allow",
+            "selector": [
+              "memberLike",
+              "variableLike"
+            ],
+            "format": [
+              "camelCase",
+              "snake_case"
+            ]
+          },
+          {
+            "leadingUnderscore": "allow",
+            "selector": "variable",
+            "modifiers": [
+              "const"
+            ],
+            "format": [
+              "camelCase",
+              "UPPER_CASE",
+              "PascalCase",
+              "snake_case"
+            ]
+          },
+          {
+            "selector": "typeAlias",
+            "format": [
+              "PascalCase"
+            ]
+          },
+          {
+            "selector": [
+              "parameter",
+              "variable"
+            ],
+            "modifiers": [
+              "unused"
+            ],
+            "format": [
+              "strictCamelCase"
+            ],
+            "leadingUnderscore": "allow"
+          }
+        ]
+      }
+    }
+  ]
 }
