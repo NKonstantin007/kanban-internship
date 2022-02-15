@@ -1,10 +1,10 @@
-import { convertToProjects, ProjectsApiModel } from '@/api-types/projects';
-import { Projects } from '@/types/projects';
+import { convertToProjects, ProjectApiModel } from '@/api-types/projects';
+import { Project } from '@/types/projects';
 import { http } from '../http';
 
 const PROJECTS_ROOT_PATH = '/projects';
 
-export const getProjects = async (): Promise<Projects[]> => {
-  const { data } = await http.get<ProjectsApiModel[]>(PROJECTS_ROOT_PATH);
+export const getProjects = async (): Promise<Project[]> => {
+  const { data } = await http.get<ProjectApiModel[]>(PROJECTS_ROOT_PATH);
   return convertToProjects(data);
 };

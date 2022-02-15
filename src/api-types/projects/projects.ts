@@ -1,15 +1,15 @@
-import { Projects } from '@/types/projects';
+import { Project } from '@/types/projects';
 
-export type ProjectsApiModel = {
+export type ProjectApiModel = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   _id: string;
   name: string;
   description: string;
 };
 
-const convertToProject = (projectsApiModel: ProjectsApiModel): Projects => {
+const convertToProject = (projectApiModel: ProjectApiModel): Project => {
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { _id, ...rest } = projectsApiModel;
+  const { _id, ...rest } = projectApiModel;
 
   return {
     id: _id,
@@ -18,7 +18,7 @@ const convertToProject = (projectsApiModel: ProjectsApiModel): Projects => {
 };
 
 export const convertToProjects = (
-  projectsApiModels: ProjectsApiModel[],
-): Projects[] => {
+  projectsApiModels: ProjectApiModel[],
+): Project[] => {
   return projectsApiModels.map(convertToProject);
 };

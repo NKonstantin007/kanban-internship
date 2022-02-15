@@ -16,7 +16,6 @@ export const useCreateUser = ({ onError }: UseCreateUserParams) => {
   return {
     createUser: useCallback(
       (credentials: SignUpCredentialsForm) => {
-        // TODO: it should be moved to service's level
         const signUpCredentials = toSignUpCredentials(credentials);
 
         return mutate(signUpCredentials, {
