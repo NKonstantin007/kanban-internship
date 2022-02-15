@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { Auth } from '../Auth';
-import { Navbar } from '../Auth/components/Navbar';
+import { TopBar } from '../Auth/components/TopBar';
 import { Home } from '../Home';
 
 const queryClient = new QueryClient();
@@ -23,7 +23,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/auth" component={Auth} />
-              <Route exact path="/nav" component={Navbar} />
+              <Route exact path="/nav" component={TopBar} />
             </Switch>
           </Router>
         </ThemeProvider>

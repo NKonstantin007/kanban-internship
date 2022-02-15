@@ -25,7 +25,7 @@ export const ButtonMenu = () => {
           <IconButton
             onClick={handleClick}
             size="small"
-            sx={{ ml: 2 }}
+            sx={{ ml: 4 }}
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
@@ -45,11 +45,11 @@ export const ButtonMenu = () => {
           sx: {
             overflow: 'visible',
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 4.5,
+            mt: 4,
             '& .MuiAvatar-root': {
               width: 32,
               height: 32,
-              ml: -0.5,
+              ml: -1,
               mr: 1,
             },
             '&:before': {

@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { ButtonMenu } from './ButtonMenu';
 
-export const Navbar = () => {
+export const TopBar = () => {
   return (
     <AppBar
       position="absolute"
