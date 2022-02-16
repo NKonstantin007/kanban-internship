@@ -4,10 +4,6 @@ export type Project = {
   description: string;
 };
 
-export type ProjectsData = {
-  data: Project[];
-};
-
 export type NewProject = {
   name: string;
   description: string;
