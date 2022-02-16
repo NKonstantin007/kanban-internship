@@ -9,12 +9,13 @@ import {
 } from '@mui/material';
 import { useCallback } from 'react';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { SignInUserData } from '@/types/auth';
+import { MAIN_PAGE, SIGNUP_PAGE } from '../../../constants';
 import { useSignInUser } from '../hooks/useSignInUser';
 
 const DEFAULT_FORM_VALUES: SignInUserData = {
-  name: '',
+  email: '',
   password: '',
 };
 
@@ -31,7 +32,7 @@ export const SignInForm = () => {
     (data: SignInUserData) => {
       signInUser(data, {
         onSuccess: () => {
-          history.push('/');
+          history.push(MAIN_PAGE);
         },
       });
     },
@@ -50,7 +51,7 @@ export const SignInForm = () => {
       >
         <Box display="flex" gap={2} alignItems="center" justifyContent="center">
           <Typography variant="h6" align="center">
-            Sing in
+            Login
           </Typography>
           {isSubmitting && <CircularProgress size={20} />}
         </Box>
@@ -64,14 +65,15 @@ export const SignInForm = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <Box display="flex" flexDirection="column" gap={4}>
               <Controller<SignInUserData>
-                name="name"
+                name="email"
                 render={({ field, fieldState }) => (
                   <TextField
                     error={fieldState.invalid}
                     helperText={fieldState?.error?.message}
-                    label="Username"
+                    label="E-mail"
                     fullWidth
                     disabled={isSubmitting}
+                    type="email"
                     {...field}
                   />
                 )}
@@ -90,22 +92,25 @@ export const SignInForm = () => {
                   />
                 )}
               />
-              <Box alignSelf="flex-end">
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                flexDirection="row"
+              >
+                <Button
+                  variant="text"
+                  type="button"
+                  onClick={() => history.push(SIGNUP_PAGE)}
+                >
+                  Sign up for an account
+                </Button>
                 <Stack direction="row" spacing={2}>
-                  <Button
-                    variant="outlined"
-                    type="button"
-                    onClick={() => reset()}
-                    disabled={isSubmitting}
-                  >
-                    Reset
-                  </Button>
                   <Button
                     variant="contained"
                     type="submit"
                     disabled={isSubmitting}
                   >
-                    Sign in
+                    Log In
                   </Button>
                 </Stack>
               </Box>
