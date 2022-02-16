@@ -1,1 +1,1 @@
-export * from './projectData';
+export * from './project';

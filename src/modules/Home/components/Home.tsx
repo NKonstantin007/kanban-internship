@@ -1,19 +1,11 @@
-import {
-  Box,
-  Paper,
-  Typography,
-  Container,
-  Avatar,
-  Stack,
-} from '@mui/material';
-import { deepOrange } from '@mui/material/colors';
+import { Box, Paper, Typography, Container, Stack } from '@mui/material';
 import { getProjectList } from '@/data/projects';
-import { ProjectData } from '@/types/projects';
+import { Project } from '@/types/projects';
 import { useDeleteState, useProjectList, useAddProjectForm } from '../hooks';
-import { AddFormDialog } from './AddFormDialog';
-import { AddNewProject } from './AddNewProject';
-import { DeleteDialog } from './DeleteDialog';
-import { ProjectInfo } from './ProjectInfo';
+import { AddNewProjectCard } from './AddNewProjectCard';
+import { AddProjectDialog } from './AddProjectDialog';
+import { DeleteProjectDialog } from './DeleteProjectDialog';
+import { ProjectCard } from './ProjectCard';
 
 export function Home() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -27,7 +19,7 @@ export function Home() {
     setModalDeleteVisible,
   ] = useDeleteState();
 
-  function clickDelete(projectId: string): void {
+  function clickDelete(projectId: string) {
     setDeletableProjectId(projectId);
     setModalDeleteVisible(true);
   }
@@ -41,51 +33,17 @@ export function Home() {
     setAddFormModalVisible,
   ] = useAddProjectForm();
 
-  type FormHTMLElement = React.RefObject<HTMLFormElement>;
-
-  function onClickSubmit(addForm: FormHTMLElement): void {
-    addForm.current?.submit();
-    setAddFormModalVisible(false);
-  }
-
   return (
     <Box>
-      <Box height={40} sx={{ paddingBottom: 20 }}>
-        <Paper variant="outlined" sx={{ height: 40 }} square>
-          <Box
-            px={5}
-            py={1.5}
-            display="flex"
-            flexDirection="row"
-            justifyContent="space-between"
-          >
-            <Box>(Logo) Asperiod</Box>
-            <Stack direction="row" spacing={2}>
-              <Avatar
-                alt="Boris"
-                sx={{
-                  bgcolor: deepOrange[500],
-                  width: 24,
-                  height: 24,
-                  fontSize: 14,
-                }}
-              >
-                B
-              </Avatar>
-              <Box>Boris</Box>
-            </Stack>
-          </Box>
-        </Paper>
-      </Box>
       <Container maxWidth="md">
         <Paper variant="outlined" sx={{ px: '5px' }}>
           <Typography variant="h5" align="center" py={5}>
             My Projects
           </Typography>
           <Stack direction="row" flexWrap="wrap">
-            <AddNewProject onClick={() => setAddFormModalVisible(true)} />
-            {projectsList.map((item: ProjectData) => (
-              <ProjectInfo
+            <AddNewProjectCard onClick={() => setAddFormModalVisible(true)} />
+            {projectsList.map((item: Project) => (
+              <ProjectCard
                 key={item.id}
                 name={item.name}
                 description={item.description}
@@ -95,18 +53,16 @@ export function Home() {
           </Stack>
         </Paper>
       </Container>
-      <DeleteDialog
+      <DeleteProjectDialog
         open={deleteModalVisible}
         handleClose={() => setModalDeleteVisible(false)}
         onClickDeleteButton={() => setModalDeleteVisible(false)}
       />
-      <AddFormDialog
+      <AddProjectDialog
         open={addFormModalVisible}
         handleClose={() => setAddFormModalVisible(false)}
         onSubmit={(/* data: ProjectFormData */) => null}
-        onClickSubmitButton={(addProjectForm: FormHTMLElement) =>
-          onClickSubmit(addProjectForm)
-        }
+        additionalAction={() => setAddFormModalVisible(false)}
       />
     </Box>
   );

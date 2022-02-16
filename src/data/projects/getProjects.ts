@@ -1,6 +1,6 @@
-import { ProjectData } from '@/types/projects';
+import { Project } from '@/types/projects';
 
-export function getProjectList(): ProjectData[] {
+export function getProjectList(): Project[] {
   return [
     {
       id: '32r23jerwjngw',

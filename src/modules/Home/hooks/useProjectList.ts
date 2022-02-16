@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { ProjectData } from '@/types/projects';
+import { Project } from '@/types/projects';
 
 export function useProjectList(
-  projects?: ProjectData[],
-): [ProjectData[] | [], React.Dispatch<ProjectData[] | []>] {
+  projects?: Project[],
+): [Project[], React.Dispatch<Project[]>] {
   const [projectsList, setProjectsList] = useState(projects ?? []);
   return [projectsList, setProjectsList];
 }

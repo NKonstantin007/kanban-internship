@@ -9,7 +9,7 @@ import {
 import { green } from '@mui/material/colors';
 import SvgIcon from '@mui/material/SvgIcon';
 
-export function AddNewProject({ onClick }: { onClick: Function }) {
+export function AddNewProjectCard({ onClick }: { onClick: () => void }) {
   return (
     <Card
       variant="outlined"

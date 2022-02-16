@@ -11,16 +11,16 @@ import { useRef } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { ProjectFormData } from '../types';
 
-export function AddFormDialog({
+export function AddProjectDialog({
   open,
   handleClose,
   onSubmit,
-  onClickSubmitButton,
+  additionalAction,
 }: {
   open: boolean;
-  handleClose: Function;
+  handleClose: () => void;
   onSubmit: SubmitHandler<ProjectFormData>;
-  onClickSubmitButton: Function;
+  additionalAction: () => void;
 }) {
   const DEFAULT_FORM_VALUES: ProjectFormData = {
     name: '',
@@ -81,7 +81,10 @@ export function AddFormDialog({
         <Stack direction="row" spacing={3}>
           <Button onClick={() => handleClose()}>Cancel</Button>
           <Button
-            onClick={() => onClickSubmitButton(addProjectForm)}
+            onClick={() => {
+              addProjectForm.current!.submit();
+              additionalAction();
+            }}
             autoFocus
             variant="contained"
           >

@@ -1,7 +1,6 @@
 import { Dialog, Button, DialogContent, DialogActions } from '@mui/material';
-import { red } from '@mui/material/colors';
 
-export function DeleteDialog({
+export function DeleteProjectDialog({
   open,
   handleClose,
   onClickDeleteButton,
@@ -15,11 +14,7 @@ export function DeleteDialog({
       <DialogContent>Are you sure want to delete the project?</DialogContent>
       <DialogActions>
         <Button onClick={() => handleClose()}>Cancel</Button>
-        <Button
-          onClick={() => onClickDeleteButton()}
-          autoFocus
-          sx={{ color: red[500] }}
-        >
+        <Button onClick={() => onClickDeleteButton()} autoFocus color="error">
           Delete
         </Button>
       </DialogActions>
