@@ -6,14 +6,15 @@ import {
   TextField,
   Button,
   Stack,
+  LinearProgress,
 } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
-import { HOME_PAGE, SIGNUP_PAGE } from '@/constants/routes';
-import { loginUser } from '@/data/auth';
+import { SIGNUP_PAGE } from '@/constants/routes';
 import { useAuthError } from '@/hooks/useAuthError';
 import { SignInUserData } from '@/types/auth';
+import { useSignInUser } from '../hooks/useSignInUser';
 
 const DEFAULT_FORM_VALUES: SignInUserData = {
   email: '',
@@ -36,14 +37,11 @@ export const SignInForm = () => {
 
   const history = useHistory();
 
-  const [loginError, setLoginError, loginErrorText] = useAuthError();
+  const [setLoginError, loginErrorText] = useAuthError();
 
-  function signIn(data: SignInUserData): void {
-    loginUser(data).then(
-      () => history.push(HOME_PAGE),
-      () => setLoginError('sendError'),
-    );
-  }
+  const { signInUser, isAuthLoading, isAuthError } = useSignInUser({
+    onError: (error: Error) => setLoginError(error.message),
+  });
 
   return (
     <Paper variant="outlined">
@@ -55,20 +53,20 @@ export const SignInForm = () => {
         py={6}
         width="450px"
       >
-        <Box display="flex" gap={2} alignItems="center" justifyContent="center">
-          <Typography variant="h6" align="center">
-            Login
-          </Typography>
-          <Typography
-            color="#ff5252"
-            sx={{
-              display: loginError !== 'noError' ? 'inline' : 'none',
-            }}
-          >
-            {loginErrorText}
-          </Typography>
-        </Box>
-        <form onSubmit={handleSubmit(signIn)}>
+        <Typography variant="h6" align="center">
+          Login
+        </Typography>
+        <Box>{isAuthLoading && <LinearProgress />}</Box>
+        <Typography
+          color="#ff5252"
+          sx={{
+            display: isAuthError ? 'inline' : 'none',
+            fontWeight: 500,
+          }}
+        >
+          {loginErrorText}
+        </Typography>
+        <form onSubmit={handleSubmit(signInUser)}>
           <Box display="flex" flexDirection="column" gap={4}>
             <Controller<SignInUserData>
               name="email"

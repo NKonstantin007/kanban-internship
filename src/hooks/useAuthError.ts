@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export function useAuthError(): [string, React.Dispatch<string>, string] {
+export function useAuthError(): [React.Dispatch<string>, string] {
   const [registrationError, setRegistrationError]: [
     string,
     React.Dispatch<string>,
@@ -9,11 +9,14 @@ export function useAuthError(): [string, React.Dispatch<string>, string] {
   if (registrationError === 'noError') {
     registrationErrorText = '';
   }
-  if (registrationError === 'sendError') {
+  if (registrationError === 'Network Error') {
     registrationErrorText = 'The form was not submitted. Check connection';
   }
-  if (registrationError === 'alreadyHaveAccountError') {
-    registrationErrorText = 'You already have an account';
+  if (registrationError === 'Request failed with status code 409') {
+    registrationErrorText = 'This e-mail already registered';
   }
-  return [registrationError, setRegistrationError, registrationErrorText];
+  if (registrationError === 'Request failed with status code 403') {
+    registrationErrorText = 'Invalid e-mail or password';
+  }
+  return [setRegistrationError, registrationErrorText];
 }

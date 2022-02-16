@@ -1,11 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Typography, Box, Paper, TextField, Button } from '@mui/material';
+import {
+  Typography,
+  Box,
+  Paper,
+  TextField,
+  Button,
+  LinearProgress,
+} from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
-import { toSignUpCredentials } from '@/api-types/signUpCredentials';
 import { AUTH_PAGE } from '@/constants/routes';
-import { signUpUser } from '@/data/auth';
 import { useAuthError } from '@/hooks/useAuthError';
 import {
   NAME_REQUIRED,
@@ -17,6 +22,7 @@ import {
   PASSWORD_WRONG_LENGTH,
   INVALID_CHARACTERS,
 } from '../constants';
+import { useCreateUser } from '../hooks';
 import { SignUpCredentialsForm } from '../types';
 
 const DEFAULT_FORM_VALUES: SignUpCredentialsForm = {
@@ -26,48 +32,44 @@ const DEFAULT_FORM_VALUES: SignUpCredentialsForm = {
   confirmedPassword: '',
 };
 
-export function RegistrationForm() {
-  const registrationFormScheme = yup.object({
-    name: yup
-      .string()
-      .required(NAME_REQUIRED)
-      .min(1, NAME_WRONG_LENGTH)
-      .max(50, NAME_WRONG_LENGTH)
-      .trim('Remove leading and trailing whitespaces')
-      .matches(/^[\wа-яё-]+$/gim, INVALID_CHARACTERS)
-      .strict(true),
-    email: yup.string().required(EMAIL_REQUIRED).email(WRONG_EMAIL),
-    confirmedPassword: yup
-      .string()
-      .required(PASSWORD_REQUIRED)
-      .equals([yup.ref('password')], PASSWORDS_DOESNT_MATCH),
-    password: yup
-      .string()
-      .required(PASSWORD_REQUIRED)
-      .min(8, PASSWORD_WRONG_LENGTH)
-      .max(50, PASSWORD_WRONG_LENGTH),
-  });
+const REGISTRATION_FORM_SCHEME = yup.object({
+  name: yup
+    .string()
+    .required(NAME_REQUIRED)
+    .min(1, NAME_WRONG_LENGTH)
+    .max(50, NAME_WRONG_LENGTH)
+    .trim('Remove leading and trailing whitespaces')
+    .matches(/^[\wа-яё' -]+$/gim, INVALID_CHARACTERS)
+    .strict(true),
+  email: yup.string().required(EMAIL_REQUIRED).email(WRONG_EMAIL),
+  confirmedPassword: yup
+    .string()
+    .required(PASSWORD_REQUIRED)
+    .equals([yup.ref('password')], PASSWORDS_DOESNT_MATCH),
+  password: yup
+    .string()
+    .required(PASSWORD_REQUIRED)
+    .min(8, PASSWORD_WRONG_LENGTH)
+    .max(50, PASSWORD_WRONG_LENGTH),
+});
 
+export function RegistrationForm() {
   const { control, handleSubmit } = useForm({
     defaultValues: DEFAULT_FORM_VALUES,
-    resolver: yupResolver(registrationFormScheme),
+    resolver: yupResolver(REGISTRATION_FORM_SCHEME),
   });
 
   const history = useHistory();
 
-  const [registrationError, setRegistrationError, registrationErrorText] =
-    useAuthError();
+  const [setRegistrationError, registrationErrorText] = useAuthError();
 
-  function signUp(data: SignUpCredentialsForm): void {
-    signUpUser(toSignUpCredentials(data)).then(
-      () => history.push(AUTH_PAGE),
-      () => setRegistrationError('sendError'),
-    );
-  }
+  const { createUser, isLoadingCreateUser, isCreateUserError } = useCreateUser({
+    onError: (error: Error) => setRegistrationError(error.message),
+  });
 
   return (
     <Paper>
-      <form onSubmit={handleSubmit(signUp)}>
+      <form onSubmit={handleSubmit(createUser)}>
         <Box
           display="flex"
           flexDirection="column"
@@ -79,10 +81,12 @@ export function RegistrationForm() {
           <Typography align="center" variant="h6">
             Registration
           </Typography>
+          <Box>{isLoadingCreateUser && <LinearProgress />}</Box>
           <Typography
             color="#ff5252"
             sx={{
-              display: registrationError !== 'noError' ? 'inline' : 'none',
+              display: isCreateUserError ? 'inline' : 'none',
+              fontWeight: 500,
             }}
           >
             {registrationErrorText}
