@@ -1,36 +1,43 @@
-import { Project } from '@/types/projects';
+import { convertToProjects, ProjectsApiModel } from '@/api-types/projects';
+import { Project, NewProject, DeleteProject } from '@/types/projects';
+import { http } from '../http';
 
-export function getProjectList(): Project[] {
-  return [
-    {
-      id: '32r23jerwjngw',
-      name: 'Поедание пельменей',
-      description: 'Нужно съесть 20 пельменей',
-    },
-    {
-      id: 'hc8r3r48gt',
-      name: 'Уборка дома',
-      description: 'Убрать зал и кухню',
-    },
-    {
-      id: '32r23jerwjngw',
-      name: 'Поедание пельменей',
-      description: 'Нужно съесть 20 пельменей',
-    },
-    {
-      id: 'hc8r3r48gt',
-      name: 'Уборка дома',
-      description: 'Убрать зал и кухню',
-    },
-    {
-      id: '32r23jerwjngw',
-      name: 'Поедание пельменей',
-      description: 'Нужно съесть 20 пельменей',
-    },
-    {
-      id: 'hc8r3r48gt',
-      name: 'Уборка дома',
-      description: 'Убрать зал и кухню',
-    },
-  ];
-}
+const PROJECTS_BASE_PATH = '/projects';
+
+export const getProjects = async (): Promise<Project[]> => {
+  const { data } = await http.get<ProjectsApiModel[]>(PROJECTS_BASE_PATH);
+  return convertToProjects(data);
+};
+
+export const getProjectById = async (id: string): Promise<Project> => {
+  const { data } = await http.get<Project>(`${PROJECTS_BASE_PATH}/${id}`);
+  return data;
+};
+
+export const createNewProject = async (
+  project: Partial<Project>,
+): Promise<Project> => {
+  const { data } = await http.post<Project>(
+    `${PROJECTS_BASE_PATH}/create`,
+    project,
+  );
+  return data;
+};
+
+export const updateProject = async (
+  id: string,
+  newProject: NewProject,
+): Promise<Project> => {
+  const { data } = await http.put(
+    `${PROJECTS_BASE_PATH}/update/${id}`,
+    newProject,
+  );
+  return data;
+};
+
+export const deleteProject = async (id: string): Promise<DeleteProject> => {
+  const { data } = await http.delete<DeleteProject>(
+    `${PROJECTS_BASE_PATH}/delete/${id}`,
+  );
+  return data;
+};

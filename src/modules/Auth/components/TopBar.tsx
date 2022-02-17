@@ -17,7 +17,7 @@ export const TopBar = () => {
     >
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          LOGO
+          <img src="" alt="LOGO" />
         </Typography>
         <Avatar
           alt="Cindy Baker"

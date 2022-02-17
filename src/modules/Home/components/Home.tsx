@@ -1,15 +1,16 @@
 import { Box, Paper, Typography, Container, Stack } from '@mui/material';
-import { getProjectList } from '@/data/projects';
+import { SideBar } from '@/modules/Auth/components/SideBar';
+import { TopBar } from '@/modules/Auth/components/TopBar';
 import { Project } from '@/types/projects';
-import { useDeleteState, useProjectList, useAddProjectForm } from '../hooks';
+import { useDeleteState, useAddProjectForm } from '../hooks';
+import { useProjects } from '../hooks/useProjects';
 import { AddNewProjectCard } from './AddNewProjectCard';
 import { AddProjectDialog } from './AddProjectDialog';
 import { DeleteProjectDialog } from './DeleteProjectDialog';
 import { ProjectCard } from './ProjectCard';
 
 export function Home() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [projectsList, _] = useProjectList(getProjectList());
+  const { projects } = useProjects();
 
   const [
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -34,7 +35,9 @@ export function Home() {
   ] = useAddProjectForm();
 
   return (
-    <Box>
+    <Box marginTop="60px">
+      <TopBar />
+      <SideBar />
       <Container maxWidth="md">
         <Paper variant="outlined" sx={{ px: '5px' }}>
           <Typography variant="h5" align="center" py={5}>
@@ -42,7 +45,7 @@ export function Home() {
           </Typography>
           <Stack direction="row" flexWrap="wrap">
             <AddNewProjectCard onClick={() => setAddFormModalVisible(true)} />
-            {projectsList.map((item: Project) => (
+            {projects.map((item: Project) => (
               <ProjectCard
                 key={item.id}
                 name={item.name}
