@@ -6,8 +6,8 @@ export function DeleteProjectDialog({
   onClickDeleteButton,
 }: {
   open: boolean;
-  handleClose: Function;
-  onClickDeleteButton: Function;
+  handleClose: () => void;
+  onClickDeleteButton: () => void;
 }) {
   return (
     <Dialog open={open} onClose={() => handleClose()}>
