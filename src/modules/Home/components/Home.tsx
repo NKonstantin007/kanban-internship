@@ -1,10 +1,13 @@
 import { Box, Paper } from '@mui/material';
+import { useHistory } from 'react-router-dom';
+import { ALLBOARDS_PAGE } from '../../../constants';
 import { Avatar } from './Avatar';
 import { ResetText } from './ResetText';
 import { TextInfo } from './TextInfo';
 import { TextInput } from './TextInput';
 
 export function Home() {
+  const history = useHistory();
   return (
     <Box
       display="flex"
@@ -26,6 +29,9 @@ export function Home() {
           <TextInfo />
         </Box>
       </Paper>
+      <button onClick={() => history.push(ALLBOARDS_PAGE)} type="submit">
+        to all boards
+      </button>
     </Box>
   );
 }

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { Auth } from '../Auth';
 import { TopBar } from '../Auth/components/TopBar';
+import { AllBoards } from '../Boards/AllBoards';
 import { Home } from '../Home';
 import { Registration } from '../Registration';
 
@@ -26,6 +27,7 @@ function App() {
               <Route path="/auth" component={Auth} />
               <Route exact path="/nav" component={TopBar} />
               <Route path="/signup" component={Registration} />
+              <Route path="/boards" component={AllBoards} />
             </Switch>
           </Router>
         </ThemeProvider>
