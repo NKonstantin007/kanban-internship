@@ -113,7 +113,6 @@ export function AddProjectDialog({
           <Button onClick={() => handleClose()}>Cancel</Button>
           <Button
             onClick={() => {
-              console.log(formState);
               if (formState.isValid) {
                 addProjectForm.current!.submit();
                 additionalAction();
