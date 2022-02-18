@@ -1,9 +1,9 @@
 export type Task = {
   id: string;
   name: string;
-  description?: string;
+  description: string;
   creator: string;
-  assignedTo?: string;
+  assignedTo: string;
   boardId: string;
   statusId: string;
   createdAt: string;

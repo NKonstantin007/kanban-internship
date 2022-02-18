@@ -1,7 +1,5 @@
-import { Box, Paper } from '@mui/material';
+import { Box, Paper, Container } from '@mui/material';
 
 export function Board() {
-  return (
-    
-  )
+  return <Container />;
 }

@@ -1,6 +1,26 @@
 import { Status } from '@/types/status';
-import { statuses } from './__mocks';
 
 export function getStatuses(): Status[] {
-  return statuses;
+  return [
+    {
+      id: 'status1',
+      name: 'Analysis',
+      boardIds: [''] /* заполнить позже */,
+    },
+    {
+      id: 'status2',
+      name: 'In progress',
+      boardIds: [''],
+    },
+    {
+      id: 'status3',
+      name: 'Testing',
+      boardIds: [''],
+    },
+    {
+      id: 'status4',
+      name: 'Done',
+      boardIds: [''],
+    },
+  ];
 }
