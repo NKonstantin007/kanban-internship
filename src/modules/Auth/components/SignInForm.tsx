@@ -1,3 +1,4 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Typography,
   Box,
@@ -5,13 +6,14 @@ import {
   TextField,
   Button,
   Stack,
-  CircularProgress,
+  LinearProgress,
 } from '@mui/material';
-import { useCallback } from 'react';
-import { useForm, FormProvider, Controller } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
+import * as yup from 'yup';
+import { SIGNUP_PAGE } from '@/constants/routes';
+import { useAuthError } from '@/hooks/useAuthError';
 import { SignInUserData } from '@/types/auth';
-import { MAIN_PAGE, SIGNUP_PAGE } from '../../../constants';
 import { useSignInUser } from '../hooks/useSignInUser';
 
 const DEFAULT_FORM_VALUES: SignInUserData = {
@@ -20,24 +22,26 @@ const DEFAULT_FORM_VALUES: SignInUserData = {
 };
 
 export const SignInForm = () => {
-  const { handleSubmit, control, reset, trigger, ...rest } = useForm({
+  const loginFormScheme = yup.object({
+    email: yup
+      .string()
+      .required('Enter a e-mail address')
+      .email('E-mail address is wrong'),
+    password: yup.string().required('Enter a password'),
+  });
+
+  const { handleSubmit, control } = useForm({
     defaultValues: DEFAULT_FORM_VALUES,
+    resolver: yupResolver(loginFormScheme),
   });
 
   const history = useHistory();
 
-  const { mutate: signInUser, isLoading: isSubmitting } = useSignInUser();
+  const [setLoginError, loginErrorText] = useAuthError();
 
-  const onSubmit = useCallback(
-    (data: SignInUserData) => {
-      signInUser(data, {
-        onSuccess: () => {
-          history.push(MAIN_PAGE);
-        },
-      });
-    },
-    [history, signInUser],
-  );
+  const { signInUser, isAuthLoading, isAuthError } = useSignInUser({
+    onError: (error: Error) => setLoginError(error.message),
+  });
 
   return (
     <Paper variant="outlined">
@@ -49,74 +53,70 @@ export const SignInForm = () => {
         py={6}
         width="450px"
       >
-        <Box display="flex" gap={2} alignItems="center" justifyContent="center">
-          <Typography variant="h6" align="center">
-            Login
+        <Typography variant="h6" align="center">
+          Login
+        </Typography>
+        <Box>{isAuthLoading && <LinearProgress />}</Box>
+        {isAuthError && (
+          <Typography
+            color="#ff5252"
+            sx={{
+              fontWeight: 500,
+            }}
+          >
+            {loginErrorText}
           </Typography>
-          {isSubmitting && <CircularProgress size={20} />}
-        </Box>
-        <FormProvider<SignInUserData>
-          trigger={trigger}
-          reset={reset}
-          handleSubmit={handleSubmit}
-          control={control}
-          {...rest}
-        >
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Box display="flex" flexDirection="column" gap={4}>
-              <Controller<SignInUserData>
-                name="email"
-                render={({ field, fieldState }) => (
-                  <TextField
-                    error={fieldState.invalid}
-                    helperText={fieldState?.error?.message}
-                    label="E-mail"
-                    fullWidth
-                    disabled={isSubmitting}
-                    type="email"
-                    {...field}
-                  />
-                )}
-              />
-              <Controller<SignInUserData>
-                name="password"
-                render={({ field, fieldState }) => (
-                  <TextField
-                    error={fieldState.invalid}
-                    helperText={fieldState?.error?.message}
-                    label="Password"
-                    type="password"
-                    fullWidth
-                    disabled={isSubmitting}
-                    {...field}
-                  />
-                )}
-              />
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                flexDirection="row"
+        )}
+        <form onSubmit={handleSubmit(signInUser)}>
+          <Box display="flex" flexDirection="column" gap={4}>
+            <Controller<SignInUserData>
+              name="email"
+              control={control}
+              render={({ field, fieldState }) => (
+                <TextField
+                  error={fieldState.invalid}
+                  helperText={fieldState?.error?.message}
+                  label="E-mail"
+                  fullWidth
+                  type="email"
+                  {...field}
+                />
+              )}
+            />
+            <Controller<SignInUserData>
+              name="password"
+              control={control}
+              render={({ field, fieldState }) => (
+                <TextField
+                  error={fieldState.invalid}
+                  helperText={fieldState?.error?.message}
+                  label="Password"
+                  type="password"
+                  fullWidth
+                  {...field}
+                />
+              )}
+            />
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              flexDirection="row"
+            >
+              <Button
+                variant="text"
+                type="button"
+                onClick={() => history.push(SIGNUP_PAGE)}
               >
-                <Button
-                  variant="text"
-                  type="button"
-                  onClick={() => history.push(SIGNUP_PAGE)}
-                >
-                  Sign up for an account
+                Sign up for an account
+              </Button>
+              <Stack direction="row" spacing={2}>
+                <Button variant="contained" type="submit">
+                  Log In
                 </Button>
-                <Stack direction="row" spacing={2}>
-                  <Button
-                    variant="contained"
-                    type="submit"
-                    disabled={isSubmitting}
-                  >
-                    Log In
-                  </Button>
-                </Stack>
-              </Box>
+              </Stack>
             </Box>
-          </form>
-        </FormProvider>
+          </Box>
+        </form>
       </Box>
     </Paper>
   );

@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { refreshToken as refreshTokenService } from '../auth/authServices';
 
+const BASE_URL = 'http://173.212.214.70:3001';
+
 export const http = axios.create({
-  baseURL: 'http://173.212.214.70:3001',
+  baseURL: BASE_URL,
 });
 
 http.interceptors.request.use(
