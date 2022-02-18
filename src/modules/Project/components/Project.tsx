@@ -7,7 +7,7 @@ import { AddProjectDialog } from './AddProjectDialog';
 import { DeleteProjectDialog } from './DeleteProjectDialog';
 import { ProjectCard } from './ProjectCard';
 
-export function Home() {
+export function Project() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [projectsList, _] = useProjectList(getProjectList());
 
