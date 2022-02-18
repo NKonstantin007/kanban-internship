@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 
-export function useAuthError(): [React.Dispatch<string>, string] {
+export function useAuthError(): [
+  React.Dispatch<React.SetStateAction<string>>,
+  string,
+] {
   const [registrationError, setRegistrationError]: [
     string,
-    React.Dispatch<string>,
+    React.Dispatch<React.SetStateAction<string>>,
   ] = useState('noError');
   let registrationErrorText = '';
   if (registrationError === 'noError') {

@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { BASE_URL } from '@/constants/base';
 import { refreshToken as refreshTokenService } from '../auth/authServices';
+
+const BASE_URL = 'http://173.212.214.70:3001';
 
 export const http = axios.create({
   baseURL: BASE_URL,

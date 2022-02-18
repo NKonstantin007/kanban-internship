@@ -3,11 +3,11 @@ import { HOME_PAGE } from '@/constants/routes';
 import { useSignInUserMutation } from '@/queries/auth';
 import { SignInUserData } from '@/types/auth';
 
-type UseCreateUserParams = {
+type UseSignInUserParams = {
   onError: (error: Error) => void;
 };
 
-export function useSignInUser({ onError }: UseCreateUserParams) {
+export function useSignInUser({ onError }: UseSignInUserParams) {
   const {
     mutate,
     isLoading: isAuthLoading,

@@ -82,15 +82,16 @@ export function RegistrationForm() {
             Registration
           </Typography>
           <Box>{isLoadingCreateUser && <LinearProgress />}</Box>
-          <Typography
-            color="#ff5252"
-            sx={{
-              display: isCreateUserError ? 'inline' : 'none',
-              fontWeight: 500,
-            }}
-          >
-            {registrationErrorText}
-          </Typography>
+          {isCreateUserError && (
+            <Typography
+              color="#ff5252"
+              sx={{
+                fontWeight: 500,
+              }}
+            >
+              {registrationErrorText}
+            </Typography>
+          )}
           <Controller<SignUpCredentialsForm>
             name="name"
             control={control}

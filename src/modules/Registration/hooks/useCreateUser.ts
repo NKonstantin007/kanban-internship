@@ -1,15 +1,15 @@
 import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { toSignUpCredentials } from '@/api-types/signUpCredentials';
 import { NEW_USER_PAGE } from '@/constants/routes';
 import { useSignUpUserMutation } from '@/queries/auth';
+import { toSignUpCredentials } from '../api-types/signUpCredentials';
 import { SignUpCredentialsForm } from '../types';
 
-type UseCreateUserParams = {
+type UseSignInUserParams = {
   onError: (error: Error) => void;
 };
 
-export const useCreateUser = ({ onError }: UseCreateUserParams) => {
+export const useCreateUser = ({ onError }: UseSignInUserParams) => {
   const {
     mutate,
     isLoading: isLoadingCreateUser,

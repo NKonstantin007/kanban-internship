@@ -1,5 +1,3 @@
-/* SignUpCredentialsForm -> SignUpCredentials */
-
 import { SignUpCredentialsForm } from '@/modules/Registration/types';
 import { SignUpCredentials } from '@/types/registration';
 

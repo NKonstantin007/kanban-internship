@@ -57,15 +57,16 @@ export const SignInForm = () => {
           Login
         </Typography>
         <Box>{isAuthLoading && <LinearProgress />}</Box>
-        <Typography
-          color="#ff5252"
-          sx={{
-            display: isAuthError ? 'inline' : 'none',
-            fontWeight: 500,
-          }}
-        >
-          {loginErrorText}
-        </Typography>
+        {isAuthError && (
+          <Typography
+            color="#ff5252"
+            sx={{
+              fontWeight: 500,
+            }}
+          >
+            {loginErrorText}
+          </Typography>
+        )}
         <form onSubmit={handleSubmit(signInUser)}>
           <Box display="flex" flexDirection="column" gap={4}>
             <Controller<SignInUserData>
