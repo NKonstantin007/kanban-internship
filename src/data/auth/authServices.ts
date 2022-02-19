@@ -6,8 +6,8 @@ import {
   RefreshTokenData,
   RefreshTokenResponse,
   LogoutUserResponse,
-} from '../../types/auth/auth';
-import { http } from '../http/http';
+} from '@/types/auth';
+import { http } from '../http';
 
 export const signUpUser = async (
   signUpUserData: SignUpUserData,
