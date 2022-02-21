@@ -6,20 +6,17 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import * as React from 'react';
-import { useHistory } from 'react-router';
-import { ALLBOARDS_PAGE } from '../../../constants';
 
 export const SideBar = () => {
-  const history = useHistory();
   return (
     <Box
       width={300}
-      height={1000}
+      height={1500}
       position="fixed"
       sx={{ border: 3, borderColor: '#E5E5E5', borderTop: 0 }}
     >
       <List sx={{ marginTop: 10, fontSize: 20 }}>
-        <ListItem button onClick={() => history.push(ALLBOARDS_PAGE)}>
+        <ListItem>
           <ListItemIcon>
             <GridViewIcon />
           </ListItemIcon>

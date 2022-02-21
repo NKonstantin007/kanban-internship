@@ -7,7 +7,7 @@ import { ButtonMenu } from './ButtonMenu';
 export const TopBar = () => {
   return (
     <AppBar
-      position="absolute"
+      position="fixed"
       sx={{
         top: '0',
         backgroundColor: '#F2F2F2',

@@ -9,6 +9,10 @@ export type NewProject = {
   description: string;
 };
 
+export type DeleteProjectData = {
+  id: string;
+};
+
 export type DeleteProject = {
   success: boolean;
 };

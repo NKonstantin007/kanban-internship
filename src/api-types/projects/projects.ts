@@ -6,7 +6,9 @@ export type ProjectsApiModel = {
   description: string;
 };
 
-const convertToProject = (projectsApiModel: ProjectsApiModel): Project => {
+export const convertToProject = (
+  projectsApiModel: ProjectsApiModel,
+): Project => {
   const { _id, ...rest } = projectsApiModel;
 
   return {

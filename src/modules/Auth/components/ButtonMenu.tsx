@@ -8,6 +8,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import * as React from 'react';
+import { useLogoutUser } from '../hooks/useLogoutUser';
 
 export const ButtonMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -18,6 +19,7 @@ export const ButtonMenu = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const { logout } = useLogoutUser({});
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -75,7 +77,7 @@ export const ButtonMenu = () => {
           </ListItemIcon>
           Change your photo
         </MenuItem>
-        <MenuItem sx={{ color: '#FF0000' }}>
+        <MenuItem sx={{ color: '#FF0000' }} onClick={logout}>
           <ListItemIcon>
             <Logout fontSize="small" sx={{ color: '#FF0000' }} />
           </ListItemIcon>

@@ -16,6 +16,7 @@ import {
   FormProvider,
 } from 'react-hook-form';
 import * as yup from 'yup';
+import { useCreateProject } from '../hooks/useCreateProject';
 import { ProjectFormData } from '../types';
 
 const DEFAULT_FORM_VALUES: ProjectFormData = {
@@ -45,11 +46,13 @@ export function AddProjectDialog({
   onSubmit: SubmitHandler<ProjectFormData>;
   additionalAction: () => void;
 }) {
-  const { control, handleSubmit, formState, ...rest } = useForm({
-    defaultValues: DEFAULT_FORM_VALUES,
-    resolver: yupResolver(ADD_PROJECT_FORM_SCHEME),
-    mode: 'onChange',
-  });
+  const { control, handleSubmit, formState, trigger, getValues, ...rest } =
+    useForm({
+      defaultValues: DEFAULT_FORM_VALUES,
+      resolver: yupResolver(ADD_PROJECT_FORM_SCHEME),
+      mode: 'onChange',
+    });
+  const { createProject } = useCreateProject();
 
   const addProjectForm = useRef<HTMLFormElement>(null);
 
@@ -63,6 +66,8 @@ export function AddProjectDialog({
           control={control}
           handleSubmit={handleSubmit}
           formState={formState}
+          trigger={trigger}
+          getValues={getValues}
           {...rest}
         >
           <form
@@ -113,9 +118,13 @@ export function AddProjectDialog({
           <Button onClick={() => handleClose()}>Cancel</Button>
           <Button
             onClick={() => {
+              trigger();
               if (formState.isValid) {
                 addProjectForm.current!.submit();
                 additionalAction();
+              } else {
+                const values = getValues();
+                createProject(values);
               }
             }}
             autoFocus
