@@ -73,4 +73,16 @@ export const tasks: Task[] = [
     updatedAt: '1970-01-20T00:16:25.670Z',
     elapsedTime: 0,
   },
+  {
+    id: 'task18',
+    name: 'Задача 18',
+    description: 'Описание задачи 18 длинное длинное длинное',
+    creator: 'User1',
+    assignedTo: 'User1',
+    boardId: 'board123',
+    statusId: 'status4',
+    createdAt: '1970-01-20T00:16:25.670Z',
+    updatedAt: '1970-01-20T00:16:25.670Z',
+    elapsedTime: 0,
+  },
 ];
