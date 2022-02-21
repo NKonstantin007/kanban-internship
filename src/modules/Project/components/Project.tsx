@@ -1,7 +1,7 @@
 import { Box, Paper, Typography, Container, Stack } from '@mui/material';
-import { getProjectList } from '@/data/projects';
 import { Project } from '@/types/projects';
-import { useDeleteState, useProjectList, useAddProjectForm } from '../hooks';
+import { useDeleteState, useAddProjectForm } from '../hooks';
+import { useProjects } from '../hooks/useProjects';
 import { AddNewProjectCard } from './AddNewProjectCard';
 import { AddProjectDialog } from './AddProjectDialog';
 import { DeleteProjectDialog } from './DeleteProjectDialog';
@@ -9,7 +9,7 @@ import { ProjectCard } from './ProjectCard';
 
 export function Project() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [projectsList, _] = useProjectList(getProjectList());
+  const { projects } = useProjects();
 
   const [
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -42,11 +42,12 @@ export function Project() {
           </Typography>
           <Stack direction="row" flexWrap="wrap">
             <AddNewProjectCard onClick={() => setAddFormModalVisible(true)} />
-            {projectsList.map((item: Project) => (
+            {projects.map((item: Project) => (
               <ProjectCard
                 key={item.id}
                 name={item.name}
                 description={item.description}
+                id={item.id}
                 onDeleteClick={() => clickDelete(item.id)}
               />
             ))}
