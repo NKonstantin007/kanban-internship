@@ -1,31 +1,15 @@
-import React, { useState } from 'react';
-
-type DialogHook<TData> = [
-  TData,
-  React.Dispatch<React.SetStateAction<TData>>,
-  {
-    open: (func?: () => void) => void;
-    close: (func?: () => void) => void;
-    toggle: () => void;
-    isOpen: boolean;
-  },
-];
+import { useState } from 'react';
+import { DialogHook } from '@/types/dialog';
 
 export function useDialogState<TData>(initialData: TData): DialogHook<TData> {
   const [data, setData] = useState(initialData);
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const dialog = {
-    open(func?: () => void) {
+    open() {
       setDialogIsOpen(true);
-      if (func) {
-        func();
-      }
     },
-    close(func?: () => void) {
+    close() {
       setDialogIsOpen(false);
-      if (func) {
-        func();
-      }
     },
     toggle() {
       setDialogIsOpen(!dialogIsOpen);

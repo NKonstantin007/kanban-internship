@@ -3,7 +3,15 @@ import { grey } from '@mui/material/colors';
 import { Task } from '@/types/task';
 import { TaskCard } from './TaskCard';
 
-export function List({ status, tasks }: { status: string; tasks: Task[] }) {
+export function List({
+  status,
+  tasks,
+  onTaskClick,
+}: {
+  status: string;
+  tasks: Task[];
+  onTaskClick: () => (id: string) => void;
+}) {
   return (
     <Paper
       sx={{
@@ -26,9 +34,11 @@ export function List({ status, tasks }: { status: string; tasks: Task[] }) {
         {tasks.map(({ id, name, description, assignedTo }) => (
           <TaskCard
             key={id}
+            id={id}
             name={name}
             description={description}
             assignedTo={assignedTo}
+            onTaskClick={() => onTaskClick()(id)}
           />
         ))}
       </Stack>
