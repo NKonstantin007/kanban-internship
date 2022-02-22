@@ -1,22 +1,11 @@
-import {
-  useQuery,
-  UseQueryOptions,
-  useMutation,
-  UseMutationOptions,
-} from 'react-query';
-import { getProjects, createNewProject, deleteProject } from '@/data/projects';
+import { useMutation, UseMutationOptions } from 'react-query';
+import { createNewProject, deleteProject } from '@/data/projects';
 import {
   Project,
   NewProject,
   DeleteProject,
   DeleteProjectData,
 } from '@/types/projects';
-
-export const useProjectsMutations = (
-  queryOptions?: UseQueryOptions<Project[]>,
-) => {
-  return useQuery('get-projects-mutation', getProjects, queryOptions);
-};
 
 export const useCreateProjectMutations = (
   queryOptions?: UseMutationOptions<Project, Error, NewProject>,
