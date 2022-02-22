@@ -36,9 +36,8 @@ export function List({ status, tasks, onTaskClick, users }: ListType) {
             id={id}
             name={name}
             description={description}
-            assignedTo={assignedTo}
+            assignedTo={users[assignedTo]}
             onTaskClick={() => onTaskClick()(id)}
-            users={users}
           />
         ))}
       </Stack>

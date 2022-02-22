@@ -8,18 +8,23 @@ import { getStatuses } from '@/data/statuses';
 import { getTasks } from '@/data/tasks';
 import { getUsers } from '@/data/user';
 import { useDialogState } from '@/hooks/useDialogState';
+import { Task } from '@/types/task';
 import { useTasks, useUserData, useUserNames } from '../hooks';
 import { List } from './List';
-import { TaskDialog } from './TaskDialog';
+import { TaskFormDialog } from './TaskFormDialog';
+import { TaskInfoDialog } from './TaskInfoDialog';
 
 export function Board() {
   const statuses = getStatuses();
-  const [tasks, setTasks] = useTasks(getTasks());
   const board = getBoardInfo();
-  const [taskId, setTaskId, editTaskDialog] = useDialogState<string>('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [tasks, setTasks] = useTasks(getTasks());
+  const [taskId, setTaskId, taskFormDialog] = useDialogState<string>('');
+  const [, , taskInfoDialog] = useDialogState<string>('');
   const [users, setUsers] = useUserData([]);
   const [userNames, setUserNames] = useUserNames({});
   const [isCreate, setCreate] = useState<boolean>(false);
+  const [currentTask, setCurrentTask] = useState<Task>();
 
   useEffect(() => {
     const usersPromise = getUsers();
@@ -31,21 +36,30 @@ export function Board() {
       });
       setUserNames(usersIdToName);
     });
-  });
+  }, [users, userNames, setUsers, setUserNames]);
+
+  useEffect(() => {
+    setCurrentTask(tasks.find((task) => task.id === taskId));
+  }, [taskId, tasks]);
 
   function openCreateDialog() {
     setCreate(true);
-    editTaskDialog.open();
+    taskFormDialog.open();
   }
 
   function onTaskClick(id: string) {
     setCreate(false);
-    editTaskDialog.open();
     setTaskId(id);
+    taskInfoDialog.open();
   }
 
   function onTaskClickInList() {
     return onTaskClick;
+  }
+
+  function openEditDialog() {
+    taskInfoDialog.close();
+    taskFormDialog.open();
   }
 
   return (
@@ -76,13 +90,24 @@ export function Board() {
       <Button sx={{ color: lightBlue[500] }}>
         <DeleteIcon /> Removed tasks
       </Button>
-      <TaskDialog
-        dialog={editTaskDialog}
-        taskId={tasks.find((task) => task.id === taskId)!.name}
+      <TaskFormDialog
+        dialog={taskFormDialog}
         isCreate={isCreate}
-        tasks={tasks}
+        currentTask={currentTask}
         users={users}
         statuses={statuses}
+      />
+      <TaskInfoDialog
+        dialog={taskInfoDialog}
+        currentTask={currentTask}
+        userName={currentTask ? userNames[currentTask.assignedTo] : ''}
+        status={
+          currentTask
+            ? statuses.find((status) => status.id === currentTask.statusId)
+                ?.name
+            : ''
+        }
+        onClickEditButton={() => openEditDialog()}
       />
     </Container>
   );
