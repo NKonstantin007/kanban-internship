@@ -125,6 +125,7 @@ export function AddProjectDialog({
               } else {
                 const values = getValues();
                 createProject(values);
+                handleClose();
               }
             }}
             autoFocus
