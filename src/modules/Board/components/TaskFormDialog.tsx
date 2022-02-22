@@ -11,7 +11,7 @@ import {
   MenuItem,
 } from '@mui/material';
 import Select from '@mui/material/Select';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Dialog as DialogType } from '@/types/dialog';
 import { Status } from '@/types/status';
@@ -65,6 +65,44 @@ export function TaskFormDialog({
     }
   }, [isCreate, setValue, currentTask]);
 
+  const renderUserSelect = useCallback(
+    ({ field }) => (
+      <FormControl fullWidth>
+        <InputLabel id="user-label">User</InputLabel>
+        <Select labelId="user-label" id="user-select" label="User" {...field}>
+          <MenuItem value="">(Not assigned)</MenuItem>
+          {users.map((user) => (
+            <MenuItem key={user.id} value={user.id}>
+              {user.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    ),
+    [users],
+  );
+
+  const renderStatusSelect = useCallback(
+    ({ field }) => (
+      <FormControl fullWidth>
+        <InputLabel id="status-label">Status</InputLabel>
+        <Select
+          labelId="status-label"
+          id="status-select"
+          label="Status"
+          {...field}
+        >
+          {statuses.map((status) => (
+            <MenuItem key={status.id} value={status.id}>
+              {status.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    ),
+    [statuses],
+  );
+
   return (
     <Dialog open={dialog.isOpen} onClose={() => dialog.close()}>
       <DialogTitle>
@@ -106,46 +144,13 @@ export function TaskFormDialog({
               <Controller<TaskForm>
                 name="userId"
                 control={control}
-                render={({ field }) => (
-                  <FormControl fullWidth>
-                    <InputLabel id="user-label">User</InputLabel>
-                    <Select
-                      labelId="user-label"
-                      id="user-select"
-                      label="User"
-                      {...field}
-                    >
-                      <MenuItem value="">(Not assigned)</MenuItem>
-                      {users.map((user) => (
-                        <MenuItem key={user.id} value={user.id}>
-                          {user.name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                )}
+                render={renderUserSelect}
               />
               {isCreate || (
                 <Controller<TaskForm>
                   name="status"
                   control={control}
-                  render={({ field }) => (
-                    <FormControl fullWidth>
-                      <InputLabel id="status-label">Status</InputLabel>
-                      <Select
-                        labelId="status-label"
-                        id="status-select"
-                        label="Status"
-                        {...field}
-                      >
-                        {statuses.map((status) => (
-                          <MenuItem key={status.id} value={status.id}>
-                            {status.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  )}
+                  render={renderStatusSelect}
                 />
               )}
             </Stack>

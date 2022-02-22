@@ -36,7 +36,7 @@ export function Board() {
       });
       setUserNames(usersIdToName);
     });
-  }, [users, userNames, setUsers, setUserNames]);
+  }, [setUserNames, setUsers]);
 
   useEffect(() => {
     setCurrentTask(tasks.find((task) => task.id === taskId));
