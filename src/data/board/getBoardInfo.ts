@@ -1,6 +1,6 @@
 import { Board } from '@/types/board';
 
-export function getBoard(): Board {
+export function getBoardInfo(): Board {
   return {
     id: 'board123',
     name: 'Main board',

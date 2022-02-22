@@ -3,15 +3,14 @@ import { grey } from '@mui/material/colors';
 import { Task } from '@/types/task';
 import { TaskCard } from './TaskCard';
 
-export function List({
-  status,
-  tasks,
-  onTaskClick,
-}: {
+type ListType = {
   status: string;
   tasks: Task[];
   onTaskClick: () => (id: string) => void;
-}) {
+  users: { [id: string]: string };
+};
+
+export function List({ status, tasks, onTaskClick, users }: ListType) {
   return (
     <Paper
       sx={{
@@ -20,7 +19,7 @@ export function List({
         py: 2,
         backgroundColor: grey[100],
         border: 'none',
-        height: 'calc(100vh - 100px)',
+        height: 'calc(100vh - 130px)',
       }}
       variant="outlined"
     >
@@ -39,6 +38,7 @@ export function List({
             description={description}
             assignedTo={assignedTo}
             onTaskClick={() => onTaskClick()(id)}
+            users={users}
           />
         ))}
       </Stack>

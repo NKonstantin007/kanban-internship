@@ -17,5 +17,5 @@ export type NewTask = {
   assignedTo: string;
   boardId: string;
   statusId: string;
-  elapsedTime: number /* elapsedTime для чего нужен? */;
+  elapsedTime: number;
 };

@@ -8,6 +8,7 @@ import {
   CardActionArea,
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { useEffect } from 'react';
 
 type TaskCardDescription = {
   id: string;
@@ -15,6 +16,7 @@ type TaskCardDescription = {
   description: string;
   assignedTo: string;
   onTaskClick: (id: string) => void;
+  users: { [id: string]: string };
 };
 
 export function TaskCard({
@@ -23,6 +25,7 @@ export function TaskCard({
   description,
   assignedTo,
   onTaskClick,
+  users,
 }: TaskCardDescription) {
   return (
     <Card>
@@ -36,7 +39,7 @@ export function TaskCard({
           </Box>
           <Stack direction="row" spacing={1}>
             <PersonIcon sx={{ fontSize: 18 }} />
-            <Typography variant="body2">{assignedTo}</Typography>
+            <Typography variant="body2">{users[assignedTo]}</Typography>
           </Stack>
         </CardContent>
       </CardActionArea>
