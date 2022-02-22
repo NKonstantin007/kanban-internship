@@ -1,4 +1,4 @@
-import { convertToProjects, ProjectsApiModel } from '../../api-types/projects';
+import { convertToProjects, ProjectApiModel } from '../../api-types/projects';
 import {
   Project,
   NewProject,
@@ -10,7 +10,7 @@ import { http } from '../http';
 const PROJECTS_BASE_PATH = '/projects';
 
 export const getProjects = async (): Promise<Project[]> => {
-  const { data } = await http.get<ProjectsApiModel[]>(PROJECTS_BASE_PATH);
+  const { data } = await http.get<ProjectApiModel[]>(PROJECTS_BASE_PATH);
   return convertToProjects(data);
 };
 

@@ -1,8 +1,8 @@
-import { useProjectsMutations } from '@/queries/projects';
+import { useProjectsQuery } from '@/queries/projects';
 
 export const useProjects = () => {
   const options = { refetchInterval: 1000 };
-  const { data, ...rest } = useProjectsMutations(options);
+  const { data, ...rest } = useProjectsQuery(options);
 
   return {
     projects: data ?? [],

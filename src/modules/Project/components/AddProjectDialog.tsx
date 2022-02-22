@@ -46,12 +46,19 @@ export function AddProjectDialog({
   onSubmit: SubmitHandler<ProjectFormData>;
   additionalAction: () => void;
 }) {
-  const { control, handleSubmit, formState, trigger, getValues, ...rest } =
-    useForm({
-      defaultValues: DEFAULT_FORM_VALUES,
-      resolver: yupResolver(ADD_PROJECT_FORM_SCHEME),
-      mode: 'onChange',
-    });
+  const {
+    control,
+    handleSubmit,
+    formState,
+    trigger,
+    getValues,
+    reset,
+    ...rest
+  } = useForm({
+    defaultValues: DEFAULT_FORM_VALUES,
+    resolver: yupResolver(ADD_PROJECT_FORM_SCHEME),
+    mode: 'onChange',
+  });
   const { createProject } = useCreateProject();
 
   const addProjectForm = useRef<HTMLFormElement>(null);
@@ -68,6 +75,7 @@ export function AddProjectDialog({
           formState={formState}
           trigger={trigger}
           getValues={getValues}
+          reset={reset}
           {...rest}
         >
           <form
@@ -122,11 +130,11 @@ export function AddProjectDialog({
               if (formState.isValid) {
                 addProjectForm.current!.submit();
                 additionalAction();
-              } else {
-                const values = getValues();
-                createProject(values);
-                handleClose();
               }
+              const values = getValues();
+              createProject(values);
+              handleClose();
+              reset();
             }}
             autoFocus
             variant="contained"

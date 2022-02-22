@@ -1,13 +1,13 @@
 import { Project } from '@/types/projects';
 
-export type ProjectsApiModel = {
+export type ProjectApiModel = {
   _id: string;
   name: string;
   description: string;
 };
 
 export const convertToProject = (
-  projectsApiModel: ProjectsApiModel,
+  projectsApiModel: ProjectApiModel,
 ): Project => {
   const { _id, ...rest } = projectsApiModel;
 
@@ -18,7 +18,7 @@ export const convertToProject = (
 };
 
 export const convertToProjects = (
-  projectsApiModel: ProjectsApiModel[],
+  projectsApiModel: ProjectApiModel[],
 ): Project[] => {
   return projectsApiModel.map(convertToProject);
 };
