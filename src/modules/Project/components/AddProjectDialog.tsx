@@ -128,11 +128,10 @@ export function AddProjectDialog({
             onClick={() => {
               trigger();
               if (formState.isValid) {
-                addProjectForm.current!.submit();
                 additionalAction();
+                const values = getValues();
+                createProject(values);
               }
-              const values = getValues();
-              createProject(values);
               handleClose();
               reset();
             }}
