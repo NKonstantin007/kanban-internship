@@ -6,7 +6,7 @@ import { TaskCard } from './TaskCard';
 type ListType = {
   status: string;
   tasks: Task[];
-  onTaskClick: () => (id: string) => void;
+  onTaskClick: () => (task: Task) => void;
   users: { [id: string]: string };
 };
 
@@ -30,14 +30,12 @@ export function List({ status, tasks, onTaskClick, users }: ListType) {
         >
           {status}
         </Typography>
-        {tasks.map(({ id, name, description, assignedTo }) => (
+        {tasks.map((task: Task) => (
           <TaskCard
-            key={id}
-            id={id}
-            name={name}
-            description={description}
-            assignedTo={users[assignedTo]}
-            onTaskClick={() => onTaskClick()(id)}
+            key={task.id}
+            task={task}
+            assignedTo={users[task.assignedTo]}
+            onTaskClick={() => onTaskClick()(task)}
           />
         ))}
       </Stack>

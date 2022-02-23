@@ -8,33 +8,32 @@ import {
   CardActionArea,
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { Task } from '@/types/task';
 
 type TaskCardDescription = {
-  id: string;
-  name: string;
-  description: string;
+  task: Task;
   assignedTo: string;
-  onTaskClick: (id: string) => void;
+  onTaskClick: (task: Task) => void;
 };
 
 export function TaskCard({
-  id,
-  name,
-  description,
-  onTaskClick,
+  task,
   assignedTo,
+  onTaskClick,
 }: TaskCardDescription) {
+  const { name, description } = task;
   return (
     <Card>
-      {/* <CardActionArea onClick={() => onTaskClick(id)}> */}
-      <CardActionArea onClick={() => onTaskClick(id)}>
+      <CardActionArea onClick={() => onTaskClick(task)}>
         <CardContent>
           <Box sx={{ marginBottom: 2 }}>
-            <Typography>{name}</Typography>
+            <Typography>
+              {name.length < 30 ? name : `${name.slice(0, 30)}…`}
+            </Typography>
             <Typography variant="caption" color={grey[600]}>
-              {description.length < 75
+              {description.length < 70
                 ? description
-                : `${description.slice(0, 75)}…`}
+                : `${description.slice(0, 70)}…`}
             </Typography>
           </Box>
           <Stack direction="row" spacing={1}>

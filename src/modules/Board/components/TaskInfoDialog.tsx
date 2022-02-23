@@ -37,7 +37,7 @@ export function TaskInfoDialog({
             <Typography>{userName}</Typography>
           </Stack>
           <Stack direction="row" spacing={1}>
-            <Typography>Доска:</Typography>{' '}
+            <Typography>Status:</Typography>{' '}
             <Typography color="green">{status}</Typography>
           </Stack>
         </Stack>

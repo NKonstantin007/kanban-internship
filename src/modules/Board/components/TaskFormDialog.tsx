@@ -29,15 +29,15 @@ type TaskDialogType = {
 type TaskForm = {
   name: string;
   description: string;
-  userId: string;
-  status: string;
+  assignedTo: string;
+  statusId: string;
 };
 
 const TASK_FORM_DEFAULT_VALUES: TaskForm = {
   name: '',
   description: '',
-  userId: '',
-  status: 'status1',
+  assignedTo: '',
+  statusId: 'status1',
 };
 
 export function TaskFormDialog({
@@ -47,23 +47,14 @@ export function TaskFormDialog({
   users,
   statuses,
 }: TaskDialogType) {
-  const { control, setValue } = useForm({
+  const { control, reset } = useForm({
     defaultValues: TASK_FORM_DEFAULT_VALUES,
   });
-
   useEffect(() => {
-    if (!isCreate && currentTask) {
-      setValue('name', currentTask.name);
-      setValue('description', currentTask.description);
-      setValue('userId', currentTask.assignedTo);
-      setValue('status', currentTask.statusId);
-    } else {
-      setValue('name', '');
-      setValue('description', '');
-      setValue('userId', '');
-      setValue('status', 'status1');
-    }
-  }, [isCreate, setValue, currentTask]);
+    const initialValues =
+      !isCreate && currentTask ? currentTask : TASK_FORM_DEFAULT_VALUES;
+    reset(initialValues);
+  }, [isCreate, reset, currentTask]);
 
   const renderUserSelect = useCallback(
     ({ field }) => (
@@ -106,9 +97,7 @@ export function TaskFormDialog({
   return (
     <Dialog open={dialog.isOpen} onClose={() => dialog.close()}>
       <DialogTitle>
-        {isCreate
-          ? 'Создать новую задачу'
-          : `Редактировать задачу «${currentTask?.name}»`}
+        {isCreate ? 'Create task' : `Edit task «${currentTask?.name}»`}
       </DialogTitle>
       <DialogContent>
         <form>
@@ -142,13 +131,13 @@ export function TaskFormDialog({
             />
             <Stack direction="row" spacing={3}>
               <Controller<TaskForm>
-                name="userId"
+                name="assignedTo"
                 control={control}
                 render={renderUserSelect}
               />
               {isCreate || (
                 <Controller<TaskForm>
-                  name="status"
+                  name="statusId"
                   control={control}
                   render={renderStatusSelect}
                 />

@@ -1,3 +1,3 @@
-import { getCurrentUserMock } from './__mocks/userServicesMocks';
+import { getUsersMock } from './__mocks/userServicesMocks';
 
-export const getUsers = getCurrentUserMock;
+export const getUsers = getUsersMock;
