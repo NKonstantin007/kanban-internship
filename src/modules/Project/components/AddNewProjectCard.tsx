@@ -6,7 +6,7 @@ import {
   Stack,
   CardActionArea,
 } from '@mui/material';
-import { green } from '@mui/material/colors';
+import { green, lightGreen } from '@mui/material/colors';
 import SvgIcon from '@mui/material/SvgIcon';
 
 export function AddNewProjectCard({ onClick }: { onClick: () => void }) {
@@ -17,6 +17,8 @@ export function AddNewProjectCard({ onClick }: { onClick: () => void }) {
         margin: '0px 5px 10px 5px',
         maxWidth: 'calc(50% - 20px)',
         flexShrink: 0,
+        backgroundColor: lightGreen[50],
+        borderColor: lightGreen[300],
       }}
     >
       <CardActionArea sx={{ height: '100%' }} onClick={() => onClick()}>
