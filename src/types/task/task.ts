@@ -9,6 +9,8 @@ export type Task = {
   createdAt: string;
   updatedAt: string;
   elapsedTime: number;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  _id?: string;
 };
 
 export type NewTask = {
@@ -19,3 +21,5 @@ export type NewTask = {
   statusId: string;
   elapsedTime: number;
 };
+
+export type UpdateTask = NewTask & { id: string };

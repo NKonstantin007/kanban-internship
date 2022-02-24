@@ -1,1 +1,1 @@
-export * from './getTasks';
+export * from './taskActions';

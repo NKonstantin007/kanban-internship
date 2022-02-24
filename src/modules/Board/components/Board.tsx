@@ -1,11 +1,15 @@
 import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Container, Stack, Typography, Button } from '@mui/material';
-import { lightBlue } from '@mui/material/colors';
+import {
+  Container,
+  Stack,
+  Typography,
+  Button,
+  CircularProgress,
+} from '@mui/material';
 import { useState, useEffect, useMemo, SetStateAction } from 'react';
+import { useParams } from 'react-router-dom';
 import { getBoardInfo } from '@/data/board';
 import { getStatuses } from '@/data/statuses';
-import { getTasks } from '@/data/tasks';
 import { getUsers } from '@/data/user';
 import { useDialogState } from '@/hooks/useDialogState';
 import { Task } from '@/types/task';
@@ -19,12 +23,14 @@ export function Board() {
   const statuses = getStatuses();
   const board = getBoardInfo();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [tasks, setTasks] = useTasks(getTasks());
+  const { tasks, refetchTasks, isLoadingTasks } = useTasks();
   // eslint-disable-next-line prettier/prettier
   const [currentTask, setCurrentTask, taskFormDialog] = useDialogState<Task | undefined>(undefined);
   const [, , taskInfoDialog] = useDialogState<string>('');
   const [users, setUsers] = useUserData([]);
   const [isCreate, setCreate] = useState<boolean>(false);
+
+  const { boardId } = useParams<{ boardId: string }>();
 
   useEffect(() => {
     const usersPromise = getUsers();
@@ -68,10 +74,17 @@ export function Board() {
           Create task
         </Button>
       </Stack>
+      {isLoadingTasks && (
+        <Stack direction="row" spacing={2}>
+          <CircularProgress size={18} /> <Typography>Загрузка...</Typography>
+        </Stack>
+      )}
       <Stack direction="row" spacing={4} sx={{ mb: 2 }}>
         {statuses.map((status) => {
-          const tasksInList = tasks.filter(
-            (task) => task.statusId === status.id && task.boardId === board.id,
+          // console.log(tasks);
+          const tasksInList = tasks?.filter(
+            (task) => task.boardId === boardId,
+            // task.statusId === status.id && task.boardId === board.id,
           );
           return (
             <List
@@ -84,15 +97,15 @@ export function Board() {
           );
         })}
       </Stack>
-      <Button sx={{ color: lightBlue[500] }}>
-        <DeleteIcon /> Removed tasks
-      </Button>
       <TaskFormDialog
         dialog={taskFormDialog}
         isCreate={isCreate}
         currentTask={currentTask}
         users={users}
         statuses={statuses}
+        onCreate={() => refetchTasks()}
+        onUpdate={() => refetchTasks()}
+        boardId={boardId}
       />
       <TaskInfoDialog
         dialog={taskInfoDialog}
