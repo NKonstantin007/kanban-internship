@@ -1,1 +1,1 @@
-export * from './tasksServices';
+export * from './getTasks';
