@@ -118,8 +118,8 @@ export function TaskFormDialog({
     [statuses],
   );
 
-  function saveForm() {
-    trigger();
+  async function saveForm() {
+    await trigger();
     if (formState.isValid) {
       const taskData = getValues();
       if (isCreate) {
