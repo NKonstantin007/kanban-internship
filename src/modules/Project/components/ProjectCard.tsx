@@ -12,10 +12,12 @@ export function ProjectCard({
   name,
   description,
   onDeleteClick,
+  id,
 }: {
   name: string;
   description: string;
   onDeleteClick: Function;
+  id: string;
 }) {
   return (
     <Card
@@ -38,7 +40,7 @@ export function ProjectCard({
         <Button
           size="small"
           sx={{ color: red[500], py: '2px' }}
-          onClick={() => onDeleteClick()}
+          onClick={() => onDeleteClick(id)}
         >
           DELETE
         </Button>
