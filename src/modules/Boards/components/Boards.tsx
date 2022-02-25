@@ -12,7 +12,7 @@ import { Title } from './Title';
 const cardImgLink =
   'https://oir.mobi/uploads/posts/2020-02/1582086149_16-p-zamki-italii-21.jpg';
 
-export function Boards() {
+export function Boards(): React.FC {
   return (
     <Box
       width="100%"
