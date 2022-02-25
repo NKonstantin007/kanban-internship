@@ -7,6 +7,9 @@ import { Auth } from '../Auth';
 import { TopBar } from '../Auth/components/TopBar';
 import { Boards } from '../Boards';
 import { Home } from '../Home';
+import { Board } from '../Board';
+import { NewUser } from '../NewUser';
+import { Project } from '../Project';
 import { Registration } from '../Registration';
 
 const queryClient = new QueryClient();
@@ -23,11 +26,14 @@ function App() {
           <CssBaseline />
           <Router>
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" component={Project} />
               <Route path="/auth" component={Auth} />
+              <Route path="/newuser" component={NewUser} />
               <Route exact path="/nav" component={TopBar} />
               <Route path="/signup" component={Registration} />
               <Route path="/boards" component={Boards} />
+              <Route exact path="/signup" component={Registration} />
+              <Route path="/board/:boardId" component={Board} />
             </Switch>
           </Router>
         </ThemeProvider>

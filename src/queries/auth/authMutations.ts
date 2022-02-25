@@ -1,12 +1,12 @@
 import { UseMutationOptions, useMutation } from 'react-query';
-import { loginUser, signUpUser, logoutUser } from '../../data/auth';
+import { loginUser, signUpUser, logoutUser } from '@/data/auth';
 import {
   SignInUserData,
   SignInUserResponse,
   SignUpUserResponse,
   SignUpUserData,
   LogoutUserResponse,
-} from '../../types/auth';
+} from '@/types/auth';
 
 export function useSignInUserMutation(
   options?: UseMutationOptions<SignInUserResponse, Error, SignInUserData>,

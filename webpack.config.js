@@ -36,7 +36,8 @@ const config = {
     alias: {
       'react-dom': '@hot-loader/react-dom',
       '@/api-types': path.resolve(__dirname, './src/api-types/'),
-      '@/components': path.resolve(__dirname, './src/api-types/'),
+      '@/components': path.resolve(__dirname, './src/components/'),
+      '@/constants': path.resolve(__dirname, './src/constants/'),
       '@/data': path.resolve(__dirname, './src/data/'),
       '@/hooks': path.resolve(__dirname, './src/hooks/'),
       '@/modules': path.resolve(__dirname, './src/modules/'),
