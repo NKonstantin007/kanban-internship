@@ -24,9 +24,9 @@ export function Boards() {
       <Box
         width="1075px"
         margin="0px auto"
-        display="grid"
-        grid-template-columns="repeat(3, 345px)"
-        grid-gap="20px"
+        display="flex"
+        flexShrink={0}
+        flexWrap="wrap"
       >
         <Typography component="h2" variant="h6" color="black" gutterBottom>
           All boards
