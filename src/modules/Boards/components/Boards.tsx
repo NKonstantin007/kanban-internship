@@ -28,7 +28,9 @@ export function Boards() {
         grid-template-columns="repeat(3, 345px)"
         grid-gap="20px"
       >
-        <Title />
+        <Typography component="h2" variant="h6" color="black" gutterBottom>
+          All boards
+        </Typography>
         <AddCard />
         {[0, 1, 2, 3, 4, 5, 6].map((item) => (
             <Card
