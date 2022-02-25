@@ -52,7 +52,7 @@ export function Boards() {
               />
               <CardMedia
                 component="img"
-                height="194"
+                height="195"
                 image={cardImgLink}
                 alt="card photo"
               />
