@@ -5,7 +5,7 @@ import { TaskCard } from './TaskCard';
 
 type ListType = {
   status: string;
-  tasks: Task[];
+  tasks?: Task[];
   onTaskClick: () => (task: Task) => void;
   users: { [id: string]: string };
 };
@@ -19,7 +19,7 @@ export function List({ status, tasks, onTaskClick, users }: ListType) {
         py: 2,
         backgroundColor: grey[100],
         border: 'none',
-        height: 'calc(100vh - 130px)',
+        height: 'calc(100vh - 100px)',
       }}
       variant="outlined"
     >
@@ -30,7 +30,7 @@ export function List({ status, tasks, onTaskClick, users }: ListType) {
         >
           {status}
         </Typography>
-        {tasks.map((task: Task) => (
+        {tasks?.map((task: Task) => (
           <TaskCard
             key={task.id}
             task={task}

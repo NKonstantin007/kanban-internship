@@ -29,7 +29,7 @@ function App() {
               <Route path="/newuser" component={NewUser} />
               <Route exact path="/nav" component={TopBar} />
               <Route exact path="/signup" component={Registration} />
-              <Route path="/board" component={Board} />
+              <Route path="/board/:boardId" component={Board} />
             </Switch>
           </Router>
         </ThemeProvider>

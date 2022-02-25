@@ -19,3 +19,5 @@ export type NewTask = {
   statusId: string;
   elapsedTime: number;
 };
+
+export type UpdateTask = NewTask & { id: string };
