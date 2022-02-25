@@ -30,8 +30,7 @@ export function Boards() {
       >
         <Title />
         <AddCard />
-        {[0, 1, 2, 3, 4, 5, 6].map((item) => {
-          return (
+        {[0, 1, 2, 3, 4, 5, 6].map((item) => (
             <Card
               sx={{ maxWidth: 345, maxHeight: 450 }}
               style={{ backgroundColor: '#fefefe' }}
