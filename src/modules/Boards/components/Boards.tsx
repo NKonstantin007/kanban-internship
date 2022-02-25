@@ -33,11 +33,11 @@ export function Boards() {
         </Typography>
         <AddCard />
         {[0, 1, 2, 3, 4, 5, 6].map((item) => (
-            <Card
-              sx={{ maxWidth: 345, maxHeight: 450 }}
-              style={{ backgroundColor: '#fefefe' }}
-              key={item}
-            >
+            <Board
+            key={...}
+            name={...}
+            description={...}
+            />
               <CardHeader
                 title={
                   <Typography color="#1d1d1d" variant="h6">
