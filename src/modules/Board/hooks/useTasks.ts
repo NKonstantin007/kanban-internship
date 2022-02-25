@@ -1,4 +1,4 @@
-import { useGetTasksQuery } from '@/queries/task';
+import { useGetTasksQuery } from '@/queries/tasks';
 
 export const useTasks = () => {
   const {

@@ -1,4 +1,4 @@
-import { useUpdateTaskMutation } from '@/queries/task';
+import { useUpdateTaskMutation } from '@/queries/tasks';
 
 export function useUpdateTask() {
   const {

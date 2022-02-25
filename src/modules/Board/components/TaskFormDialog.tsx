@@ -119,8 +119,8 @@ export function TaskFormDialog({
   );
 
   async function saveForm() {
-    await trigger();
-    if (formState.isValid) {
+    const isValid = await trigger();
+    if (isValid) {
       const taskData = getValues();
       if (isCreate) {
         createTask(
@@ -147,7 +147,9 @@ export function TaskFormDialog({
         {isCreate ? 'Create task' : `Edit task «${currentTask?.name}»`}
       </DialogTitle>
       <DialogContent>
-        {(isCreatingTask || isUpdatingTask) && <LinearProgress />}
+        {(isCreatingTask || isUpdatingTask || formState.isValidating) && (
+          <LinearProgress sx={{ mb: 2 }} />
+        )}
         <form>
           <Stack spacing={4} sx={{ width: 500, pt: '6px' }}>
             <Controller<TaskForm>

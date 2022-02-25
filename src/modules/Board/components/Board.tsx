@@ -22,11 +22,9 @@ import { TaskInfoDialog } from './TaskInfoDialog';
 export function Board() {
   const statuses = getStatuses();
   const board = getBoardInfo();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { tasks, refetchTasks, isLoadingTasks } = useTasks();
-  // eslint-disable-next-line prettier/prettier
-  const [currentTask, setCurrentTask, taskFormDialog] = useDialogState<Task | undefined>(undefined);
-  const [, , taskInfoDialog] = useDialogState<string>('');
+  const [currentTask, setCurrentTask, taskFormDialog] = useDialogState<Task>();
+  const [, , taskInfoDialog] = useDialogState<string>();
   const [users, setUsers] = useUserData([]);
   const [isCreate, setCreate] = useState<boolean>(false);
 
@@ -81,11 +79,7 @@ export function Board() {
       )}
       <Stack direction="row" spacing={4} sx={{ mb: 2 }}>
         {statuses.map((status) => {
-          // console.log(tasks);
-          const tasksInList = tasks?.filter(
-            (task) => task.boardId === boardId,
-            // task.statusId === status.id && task.boardId === board.id,
-          );
+          const tasksInList = tasks?.filter((task) => task.boardId === boardId);
           return (
             <List
               key={status.id}
@@ -103,8 +97,8 @@ export function Board() {
         currentTask={currentTask}
         users={users}
         statuses={statuses}
-        onCreate={() => refetchTasks()}
-        onUpdate={() => refetchTasks()}
+        onCreate={refetchTasks}
+        onUpdate={refetchTasks}
         boardId={boardId}
       />
       <TaskInfoDialog
