@@ -1,26 +1,9 @@
 import { Status } from '@/types/status';
+import { http } from '../http';
 
-export function getStatuses(): Status[] {
-  return [
-    {
-      id: 'status1',
-      name: 'Analysis',
-      boardIds: [''] /* заполнить позже */,
-    },
-    {
-      id: 'status2',
-      name: 'In progress',
-      boardIds: [''],
-    },
-    {
-      id: 'status3',
-      name: 'Testing',
-      boardIds: [''],
-    },
-    {
-      id: 'status4',
-      name: 'Done',
-      boardIds: [''],
-    },
-  ];
-}
+const STATUS_BASE_PATH = '/statuses';
+
+export const getStatuses = async (): Promise<Status[]> => {
+  const { data } = await http.get<Status[]>(STATUS_BASE_PATH);
+  return data;
+};

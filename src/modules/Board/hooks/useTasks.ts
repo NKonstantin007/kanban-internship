@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { Task } from '@/types/task';
+import { useTasksQuery } from '@/queries/tasks';
 
-export function useTasks(
-  initialTasks: Task[],
-): [Task[], React.Dispatch<React.SetStateAction<Task[]>>] {
-  const [tasks, setTasks] = useState(initialTasks);
-  return [tasks, setTasks];
-}
+export const useTasks = () => {
+  const { data, ...rest } = useTasksQuery();
+
+  return {
+    tasks: data ?? [],
+    ...rest,
+  };
+};

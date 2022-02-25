@@ -10,7 +10,7 @@ export const useCreateProject = () => {
       (data: NewProject) => {
         mutate(data, {
           onSuccess: () => {
-            console.log('yeah!');
+            console.log('yooopi!');
           },
         });
       },

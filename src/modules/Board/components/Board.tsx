@@ -4,22 +4,20 @@ import { Container, Stack, Typography, Button } from '@mui/material';
 import { lightBlue } from '@mui/material/colors';
 import { useState, useEffect, useMemo, SetStateAction } from 'react';
 import { getBoardInfo } from '@/data/board';
-import { getStatuses } from '@/data/statuses';
-import { getTasks } from '@/data/tasks';
 import { getUsers } from '@/data/user';
 import { useDialogState } from '@/hooks/useDialogState';
 import { Task } from '@/types/task';
 import { User } from '@/types/user';
-import { useTasks, useUserData } from '../hooks';
+import { useTasks, useUserData, useStatuses } from '../hooks';
 import { List } from './List';
 import { TaskFormDialog } from './TaskFormDialog';
 import { TaskInfoDialog } from './TaskInfoDialog';
 
 export function Board() {
-  const statuses = getStatuses();
+  const { statuses } = useStatuses();
   const board = getBoardInfo();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [tasks, setTasks] = useTasks(getTasks());
+  const { tasks } = useTasks();
   // eslint-disable-next-line prettier/prettier
   const [currentTask, setCurrentTask, taskFormDialog] = useDialogState<Task | undefined>(undefined);
   const [, , taskInfoDialog] = useDialogState<string>('');

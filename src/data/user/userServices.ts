@@ -1,3 +1,9 @@
-import { getUsersMock } from './__mocks/userServicesMocks';
+import { User } from '../../types/user';
+import { http } from '../http';
 
-export const getUsers = getUsersMock;
+const USERS_BASE_PATH = '/users';
+
+export const getUsers = async (): Promise<User[]> => {
+  const { data } = await http.get<User[]>(USERS_BASE_PATH);
+  return data;
+};

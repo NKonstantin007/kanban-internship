@@ -1,3 +1,5 @@
+export type Success = { success: boolean };
+
 export type Task = {
   id: string;
   name: string;
@@ -18,4 +20,10 @@ export type NewTask = {
   boardId: string;
   statusId: string;
   elapsedTime: number;
+};
+
+export type UpdateTask = {
+  id: string;
+  name: string;
+  boardId: string;
 };
