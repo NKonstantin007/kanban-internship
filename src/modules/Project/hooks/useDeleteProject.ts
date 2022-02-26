@@ -1,20 +1,21 @@
 import { useCallback } from 'react';
-import { DeleteProjectData } from '@/types/projects';
-import { useDeleteProjectMutations } from '../../../queries/projects';
+import { MutateOptions } from 'react-query';
+import { useDeleteProjectMutation } from '@/queries/projects';
+import { Success } from '@/types/success';
 
-export const useDeleteProject = () => {
-  const { mutate } = useDeleteProjectMutations();
+export const useDeleteProject = (
+  options?: MutateOptions<Success, Error, string>,
+) => {
+  const { mutate, isLoading, isError } = useDeleteProjectMutation();
 
   return {
     deleteProject: useCallback(
-      (data: DeleteProjectData) => {
-        mutate(data, {
-          onSuccess: () => {
-            console.log('project delete');
-          },
-        });
+      (data: string) => {
+        mutate(data, options);
       },
-      [mutate],
+      [mutate, options],
     ),
+    isDeleting: isLoading,
+    isDeleteError: isError,
   };
 };
