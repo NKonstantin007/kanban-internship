@@ -11,13 +11,13 @@ import { grey, red } from '@mui/material/colors';
 export function ProjectCard({
   name,
   description,
+  onClick,
   onDeleteClick,
-  id,
 }: {
   name: string;
   description: string;
-  onDeleteClick: Function;
-  id: string;
+  onClick: () => void;
+  onDeleteClick: () => void;
 }) {
   return (
     <Card
@@ -28,7 +28,7 @@ export function ProjectCard({
         flexShrink: 0,
       }}
     >
-      <CardActionArea>
+      <CardActionArea onClick={() => onClick()}>
         <CardContent>
           <Typography>{name}</Typography>
           <Typography variant="caption" color={grey[600]}>
@@ -40,7 +40,7 @@ export function ProjectCard({
         <Button
           size="small"
           sx={{ color: red[500], py: '2px' }}
-          onClick={() => onDeleteClick(id)}
+          onClick={() => onDeleteClick()}
         >
           DELETE
         </Button>
