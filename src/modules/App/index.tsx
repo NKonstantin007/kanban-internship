@@ -8,8 +8,8 @@ import { TopBar } from '../Auth/components/TopBar';
 import { Boards } from '../Boards';
 import { Home } from '../Home';
 import { Board } from '../Board';
+import { Main } from '../Main';
 import { NewUser } from '../NewUser';
-import { Project } from '../Project';
 import { Registration } from '../Registration';
 
 const queryClient = new QueryClient();
@@ -26,7 +26,7 @@ function App() {
           <CssBaseline />
           <Router>
             <Switch>
-              <Route exact path="/" component={Project} />
+              <Route exact path="/" component={Main} />
               <Route path="/auth" component={Auth} />
               <Route path="/newuser" component={NewUser} />
               <Route exact path="/nav" component={TopBar} />
