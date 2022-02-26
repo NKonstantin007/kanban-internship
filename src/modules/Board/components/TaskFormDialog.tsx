@@ -43,8 +43,8 @@ type TaskForm = {
 const TASK_FORM_DEFAULT_VALUES: TaskForm = {
   name: '',
   description: '',
-  assignedTo: 'void',
-  statusId: 'status1',
+  assignedTo: '',
+  statusId: '621783e1911e59ce42922b9b',
 };
 
 const DIALOG_FORM_SCHEME = yup.object({
@@ -87,7 +87,7 @@ export function TaskFormDialog({
         <Select labelId="user-label" id="user-select" label="User" {...field}>
           <MenuItem value="void">(Not assigned)</MenuItem>
           {users.map((user) => (
-            <MenuItem key={user.id} value={user.id}>
+            <MenuItem sx={{ width: '400px' }} key={user.id} value={user.id}>
               {user.name}
             </MenuItem>
           ))}
