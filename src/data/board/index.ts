@@ -1,1 +1,1 @@
-export * from './getBoardInfo';
+export * from './boardActions';
