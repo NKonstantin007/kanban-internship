@@ -6,8 +6,8 @@ import { RecoilRoot } from 'recoil';
 import { Auth } from '../Auth';
 import { TopBar } from '../Auth/components/TopBar';
 import { Board } from '../Board';
+import { Main } from '../Main';
 import { NewUser } from '../NewUser';
-import { Project } from '../Project';
 import { Registration } from '../Registration';
 
 const queryClient = new QueryClient();
@@ -24,7 +24,7 @@ function App() {
           <CssBaseline />
           <Router>
             <Switch>
-              <Route exact path="/" component={Project} />
+              <Route exact path="/" component={Main} />
               <Route path="/auth" component={Auth} />
               <Route path="/newuser" component={NewUser} />
               <Route exact path="/nav" component={TopBar} />

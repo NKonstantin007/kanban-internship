@@ -17,7 +17,7 @@ import { AddProjectDialog } from './AddProjectDialog';
 import { DeleteProjectDialog } from './DeleteProjectDialog';
 import { ProjectCard } from './ProjectCard';
 
-export function Project() {
+export function Main() {
   const { projects, refetchProjects, isLoadingProjects } = useProjects();
 
   const refetch = () => {
@@ -32,7 +32,6 @@ export function Project() {
     onSuccess: refetch,
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [deletableProjectId, setDeletableProjectId, deleteProjectDialog] =
     useDialogState<string>();
 
