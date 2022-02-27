@@ -48,7 +48,7 @@ export function Main() {
           </Typography>
           {isLoadingProjects && (
             <Stack direction="row" sx={{ mb: 2 }} spacing={2}>
-              <CircularProgress size={18} /> <Typography>Загрузка</Typography>
+              <CircularProgress size={18} /> <Typography>Loading</Typography>
             </Stack>
           )}
           <Stack direction="row" flexWrap="wrap">

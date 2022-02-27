@@ -17,7 +17,7 @@ export const updateBoard = async ({
   ...boardData
 }: Board): Promise<Board> => {
   const { data } = await http.put<BoardApiModel>(
-    `/boards/create/${id}`,
+    `/boards/update/${id}`,
     boardData,
   );
   return convertToBoard(data);

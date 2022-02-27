@@ -30,7 +30,7 @@ function App() {
               <Route path="/newuser" component={NewUser} />
               <Route exact path="/nav" component={TopBar} />
               <Route path="/signup" component={Registration} />
-              <Route path="/project" component={Project} />
+              <Route path="/project/:projectId" component={Project} />
               <Route exact path="/signup" component={Registration} />
               <Route path="/board/:boardId" component={Board} />
             </Switch>

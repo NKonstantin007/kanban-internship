@@ -23,6 +23,11 @@ const config = {
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
         type: 'asset/resource',
       },
       {
