@@ -71,7 +71,7 @@ export function Board() {
 
   return (
     <Container>
-      <Stack direction="row" sx={{ ml: 2, my: 5 }} spacing={4}>
+      <Stack direction="row" sx={{ ml: 2, my: 5, mt: 20 }} spacing={4}>
         <Typography variant="h5">{data?.name}</Typography>
         <Button variant="contained" onClick={() => openCreateDialog()}>
           <AddIcon sx={{ mr: 1 }} />
