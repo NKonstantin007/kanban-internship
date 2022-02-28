@@ -4,6 +4,7 @@ export type SignInUserData = {
 };
 
 export type SignInUserResponse = {
+  userId: string;
   token: string;
   refreshToken: string;
 };

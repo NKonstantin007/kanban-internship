@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+import { AUTH_PAGE } from '@/constants/routes';
 import { useLogoutUserMutation } from '@/queries/auth/authMutations';
-import { AUTH_PAGE } from '../../../constants';
 
 type UseCreateUserParams = {
   onError?: () => void;

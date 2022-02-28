@@ -6,8 +6,9 @@ import {
   Stack,
   CircularProgress,
 } from '@mui/material';
+import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { PROJECT_PAGE } from '@/constants/routes';
+import { AUTH_PAGE, PROJECT_PAGE } from '@/constants/routes';
 import { useDialogState } from '@/hooks/useDialogState';
 import { useSimpleDialog } from '@/hooks/useSimpleDialog';
 import { Project, NewProject } from '@/types/projects';
@@ -40,6 +41,12 @@ export function Main() {
   });
 
   const history = useHistory();
+
+  useEffect(() => {
+    if (localStorage.userId === undefined || localStorage.token === undefined) {
+      history.push(AUTH_PAGE);
+    }
+  }, [history]);
 
   return (
     <Box>
