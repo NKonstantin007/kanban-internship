@@ -21,7 +21,7 @@ export function useSignUpUserMutation(
 }
 
 export function useLogoutUserMutation(
-  options?: UseMutationOptions<LogoutUserResponse, Error>,
+  options?: UseMutationOptions<LogoutUserResponse, Error, undefined>,
 ) {
   return useMutation('logout-user-mutation', logoutUser, options);
 }
