@@ -15,7 +15,7 @@ export function NewUser() {
     <Box
       display="flex"
       width="100%"
-      height="100vh"
+      height="calc(100vh - 100px)"
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
