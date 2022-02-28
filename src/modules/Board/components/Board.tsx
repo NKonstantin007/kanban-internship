@@ -8,30 +8,28 @@ import {
 } from '@mui/material';
 import { useState, useEffect, useMemo, SetStateAction } from 'react';
 import { useParams } from 'react-router-dom';
-import { getBoardInfo } from '@/data/board';
-import { getStatuses } from '@/data/statuses';
-import { getUsers } from '@/data/user';
+import { getALLUsers } from '@/data/user';
 import { useDialogState } from '@/hooks/useDialogState';
+import { Board } from '@/types/board';
 import { Task } from '@/types/task';
 import { User } from '@/types/user';
-import { useTasks, useUserData } from '../hooks';
+import { useTasks, useUserData, useBoardId, useAllStatuses } from '../hooks';
 import { List } from './List';
 import { TaskFormDialog } from './TaskFormDialog';
 import { TaskInfoDialog } from './TaskInfoDialog';
 
 export function Board() {
-  const statuses = getStatuses();
-  const board = getBoardInfo();
+  const { statuses } = useAllStatuses();
   const { tasks, refetchTasks, isLoadingTasks } = useTasks();
   const [currentTask, setCurrentTask, taskFormDialog] = useDialogState<Task>();
   const [, , taskInfoDialog] = useDialogState<string>();
   const [users, setUsers] = useUserData([]);
   const [isCreate, setCreate] = useState<boolean>(false);
-
   const { boardId } = useParams<{ boardId: string }>();
+  const { data, isLoading, isError } = useBoardId(boardId);
 
   useEffect(() => {
-    const usersPromise = getUsers();
+    const usersPromise = getALLUsers();
     usersPromise.then((result: SetStateAction<User[]>) => setUsers(result));
   }, [setUsers]);
 
@@ -63,10 +61,18 @@ export function Board() {
     taskFormDialog.open();
   }
 
+  if (isLoading) {
+    return <h2>Loading ...</h2>;
+  }
+
+  if (isError) {
+    return <h2>OOOoooops!</h2>;
+  }
+
   return (
     <Container>
       <Stack direction="row" sx={{ ml: 2, my: 5 }} spacing={4}>
-        <Typography variant="h5">{board.name}</Typography>
+        <Typography variant="h5">{data?.name}</Typography>
         <Button variant="contained" onClick={() => openCreateDialog()}>
           <AddIcon sx={{ mr: 1 }} />
           Create task
@@ -79,7 +85,9 @@ export function Board() {
       )}
       <Stack direction="row" spacing={4} sx={{ mb: 2 }}>
         {statuses.map((status) => {
-          const tasksInList = tasks?.filter((task) => task.boardId === boardId);
+          const tasksInList = tasks?.filter(
+            (task) => task.boardId === boardId && status.id === task.statusId,
+          );
           return (
             <List
               key={status.id}
