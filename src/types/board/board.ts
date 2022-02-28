@@ -4,3 +4,9 @@ export type Board = {
   color?: string;
   projectId: string;
 };
+
+export type NewBoard = {
+  name: string;
+  color?: string;
+  projectId: string;
+};

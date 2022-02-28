@@ -1,1 +1,1 @@
-export * from './ProjectFormData';
+export * from './BoardFormData';
