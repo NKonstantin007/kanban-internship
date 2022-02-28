@@ -19,7 +19,7 @@ export function List({ status, tasks, onTaskClick, users }: ListType) {
         py: 2,
         backgroundColor: grey[100],
         border: 'none',
-        height: 'calc(100vh - 100px)',
+        height: 'calc(100vh - 160px)',
       }}
       variant="outlined"
     >

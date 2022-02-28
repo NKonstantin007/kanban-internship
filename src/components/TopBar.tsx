@@ -7,11 +7,6 @@ import { useLogoutUser } from '@/hooks/useLogoutUser';
 
 export const TopBar = () => {
   const [userName, setUserName] = useState('');
-  useEffect(() => {
-    getUserById(localStorage.userId).then((user) => {
-      setUserName(user.name);
-    });
-  }, []);
 
   const location = useLocation();
 
@@ -23,11 +18,19 @@ export const TopBar = () => {
     [location],
   );
 
+  useEffect(() => {
+    if (visible) {
+      getUserById(localStorage.userId).then((user) => {
+        setUserName(user.name);
+      });
+    }
+  }, [visible]);
+
   const { logout } = useLogoutUser({});
   if (visible) {
     return (
       <AppBar
-        position="absolute"
+        position="fixed"
         sx={{
           top: '0',
           backgroundColor: '#F2F2F2',
