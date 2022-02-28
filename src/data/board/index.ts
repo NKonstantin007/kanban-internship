@@ -1,1 +1,2 @@
-export * from './getBoardId';
+export * from './boardActions';
+export * from './getBoardInfo';

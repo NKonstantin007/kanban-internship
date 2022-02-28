@@ -17,13 +17,13 @@ export function useCreateTaskMutation(
 export function useUpdateTaskMutation(
   options?: UseMutationOptions<Task, Error, UpdateTask>,
 ) {
-  return useMutation('create-task-mutation', updateTask, options);
+  return useMutation('update-task-mutation', updateTask, options);
 }
 
 export function useDeleteTaskMutation(
   options?: UseMutationOptions<Success, Error, string>,
 ) {
-  return useMutation('create-task-mutation', deleteTask, options);
+  return useMutation('delete-task-mutation', deleteTask, options);
 }
 
 export function useGetTasksQuery(

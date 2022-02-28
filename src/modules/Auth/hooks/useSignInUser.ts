@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { PROJECT_PAGE } from '@/constants/routes';
+import { ALL_PROJECTS_PAGE } from '@/constants/routes';
 import { useSignInUserMutation } from '@/queries/auth';
 import { SignInUserData } from '@/types/auth';
 
@@ -19,7 +19,7 @@ export function useSignInUser({ onError }: UseSignInUserParams) {
     signInUser: (signUpCredentials: SignInUserData) => {
       return mutate(signUpCredentials, {
         onSuccess: () => {
-          history.push(PROJECT_PAGE);
+          history.push(ALL_PROJECTS_PAGE);
         },
         onError,
       });
