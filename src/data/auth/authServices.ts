@@ -26,6 +26,7 @@ export const loginUser = async (
     `/auth/login`,
     signInUserData,
   );
+  localStorage.setItem('userId', data.userId);
   localStorage.setItem('token', data.token);
   localStorage.setItem('refreshToken', data.refreshToken);
   return data;

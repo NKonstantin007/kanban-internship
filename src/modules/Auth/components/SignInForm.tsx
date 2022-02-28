@@ -44,7 +44,7 @@ export const SignInForm = () => {
   });
 
   return (
-    <Paper variant="outlined">
+    <Paper>
       <Box
         display="flex"
         flexDirection="column"
