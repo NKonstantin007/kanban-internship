@@ -65,10 +65,13 @@ export function BoardFormDialog({
   });
 
   useEffect(() => {
-    if (currentBoard) {
+    if (currentBoard && !isCreate) {
       reset({ name: currentBoard.name });
     }
-  }, [reset, currentBoard]);
+    if (isCreate) {
+      reset({ name: '' });
+    }
+  }, [reset, currentBoard, isCreate, open]);
 
   return (
     <Dialog open={open} onClose={() => handleClose()}>
@@ -101,7 +104,7 @@ export function BoardFormDialog({
                   sx={{ width: 400 }}
                   error={fieldState.invalid}
                   helperText={fieldState.error?.message}
-                  disabled={isValidating}
+                  disabled={isValidating || isCreating || isUpdating}
                   required
                   {...field}
                 />
@@ -127,15 +130,11 @@ export function BoardFormDialog({
                     projectId: projectId!,
                   });
                 }
-                if (!isUpdateError && !isCreateError) {
-                  handleClose();
-                  reset();
-                }
               }
             }}
             autoFocus
             variant="contained"
-            disabled={isValidating}
+            disabled={isValidating || isCreating || isUpdating}
           >
             {isCreate ? 'Add' : 'Edit'}
           </Button>

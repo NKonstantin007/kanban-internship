@@ -20,22 +20,24 @@ import { ProjectCard } from './ProjectCard';
 export function Main() {
   const { projects, refetchProjects, isLoadingProjects } = useProjects();
 
-  const refetch = () => {
-    refetchProjects();
-  };
-
-  const { deleteProject, isDeleting, isDeleteError } = useDeleteProject({
-    onSuccess: refetch,
-  });
-
-  const { createProject, isCreating, isCreateError } = useCreateProject({
-    onSuccess: refetch,
-  });
-
   const [deletableProjectId, setDeletableProjectId, deleteProjectDialog] =
     useDialogState<string>();
 
   const createProjectDialog = useSimpleDialog();
+
+  const { deleteProject, isDeleting, isDeleteError } = useDeleteProject({
+    onSuccess: () => {
+      refetchProjects();
+      deleteProjectDialog.close();
+    },
+  });
+
+  const { createProject, isCreating, isCreateError } = useCreateProject({
+    onSuccess: () => {
+      refetchProjects();
+      createProjectDialog.close();
+    },
+  });
 
   const history = useHistory();
 

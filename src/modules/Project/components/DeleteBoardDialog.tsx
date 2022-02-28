@@ -32,12 +32,10 @@ export function DeleteBoardDialog({
       <DialogActions>
         <Button onClick={() => handleClose()}>Cancel</Button>
         <Button
-          onClick={() => {
-            onClickDeleteButton();
-            handleClose();
-          }}
+          onClick={() => onClickDeleteButton()}
           autoFocus
           color="error"
+          disabled={isDeleting}
         >
           Delete
         </Button>

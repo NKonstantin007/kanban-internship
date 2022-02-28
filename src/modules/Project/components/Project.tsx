@@ -38,27 +38,32 @@ export function Project() {
     [boards, projectId],
   );
 
-  const refetch = () => {
-    refetchBoards();
-  };
-
-  const { deleteBoard, isDeleting, isDeleteError } = useDeleteBoard({
-    onSuccess: refetch,
-  });
-
-  const { createBoard, isCreating, isCreateError } = useCreateBoard({
-    onSuccess: refetch,
-  });
-
-  const { updateBoard, isUpdating, isUpdateError } = useUpdateBoard({
-    onSuccess: refetch,
-  });
-
   const [deletableBoardId, setDeletableBoardId, deleteBoardDialog] =
     useDialogState<string>();
 
   const [currentBoard, setCurrentBoard, boardFormDialog] =
     useDialogState<Board>();
+
+  const { deleteBoard, isDeleting, isDeleteError } = useDeleteBoard({
+    onSuccess: () => {
+      refetchBoards();
+      deleteBoardDialog.close();
+    },
+  });
+
+  const { createBoard, isCreating, isCreateError } = useCreateBoard({
+    onSuccess: () => {
+      refetchBoards();
+      boardFormDialog.close();
+    },
+  });
+
+  const { updateBoard, isUpdating, isUpdateError } = useUpdateBoard({
+    onSuccess: () => {
+      refetchBoards();
+      boardFormDialog.close();
+    },
+  });
 
   const history = useHistory();
 

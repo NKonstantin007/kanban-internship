@@ -10,6 +10,7 @@ import {
   LinearProgress,
   Typography,
 } from '@mui/material';
+import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { convertToNewProject } from '../api-types';
@@ -55,6 +56,10 @@ export function AddProjectDialog({
     resolver: yupResolver(ADD_PROJECT_FORM_SCHEME),
   });
 
+  useEffect(() => {
+    reset(DEFAULT_FORM_VALUES);
+  }, [open, reset]);
+
   return (
     <Dialog open={open} onClose={() => handleClose()}>
       <DialogTitle sx={{ textAlign: 'center', paddingTop: '20px' }}>
@@ -80,7 +85,7 @@ export function AddProjectDialog({
                   sx={{ width: 400 }}
                   error={fieldState.invalid}
                   helperText={fieldState.error?.message}
-                  disabled={isValidating}
+                  disabled={isValidating || isCreating}
                   required
                   {...field}
                 />
@@ -99,7 +104,7 @@ export function AddProjectDialog({
                   maxRows={10}
                   error={fieldState.invalid}
                   helperText={fieldState.error?.message}
-                  disabled={isValidating}
+                  disabled={isValidating || isCreating}
                   {...field}
                 />
               )}
@@ -116,15 +121,11 @@ export function AddProjectDialog({
               if (isValid) {
                 const formData = getValues();
                 onClickAddButton(convertToNewProject(formData));
-                if (!isCreateError) {
-                  handleClose();
-                  reset();
-                }
               }
             }}
             autoFocus
             variant="contained"
-            disabled={isValidating}
+            disabled={isValidating || isCreating}
           >
             Add
           </Button>
