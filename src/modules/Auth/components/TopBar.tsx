@@ -1,10 +1,11 @@
+import { Stack, Button } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
-import Avatar from '@mui/material/Avatar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { ButtonMenu } from './ButtonMenu';
+import { useLogoutUser } from '../hooks/useLogoutUser';
 
 export const TopBar = () => {
+  const { logout } = useLogoutUser({});
   return (
     <AppBar
       position="absolute"
@@ -19,13 +20,17 @@ export const TopBar = () => {
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           LOGO
         </Typography>
-        <Avatar
-          alt="Cindy Baker"
-          src="/static/images/avatar/3.jpg"
-          sx={{ marginRight: '20px' }}
-        />
-        <Typography variant="h6">Cindy Baker</Typography>
-        <ButtonMenu />
+        <Typography variant="h6">Hello, Cindy Baker!</Typography>
+        <Stack
+          spacing={2}
+          direction="row"
+          sx={{ marginLeft: '15px', color: '#FF0000' }}
+          onClick={logout}
+        >
+          <Button variant="contained" color="error">
+            Log Out
+          </Button>
+        </Stack>
       </Toolbar>
     </AppBar>
   );
