@@ -6,6 +6,7 @@ import { RecoilRoot } from 'recoil';
 import { Auth } from '../Auth';
 import { TopBar } from '../Auth/components/TopBar';
 import { Board } from '../Board';
+import { Main } from '../Main';
 import { NewUser } from '../NewUser';
 import { Project } from '../Project';
 import { Registration } from '../Registration';
@@ -24,10 +25,12 @@ function App() {
           <CssBaseline />
           <Router>
             <Switch>
-              <Route exact path="/" component={Project} />
+              <Route exact path="/" component={Main} />
               <Route path="/auth" component={Auth} />
               <Route path="/newuser" component={NewUser} />
               <Route exact path="/nav" component={TopBar} />
+              <Route path="/signup" component={Registration} />
+              <Route path="/project/:projectId" component={Project} />
               <Route exact path="/signup" component={Registration} />
               <Route path="/board/:boardId" component={Board} />
             </Switch>
