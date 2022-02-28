@@ -17,8 +17,12 @@ export const TopBar = () => {
       }}
     >
       <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          LOGO
+        <Typography variant="h6" sx={{ flexGrow: 1, ml: '15px' }}>
+          <img
+            src="https://i.ibb.co/KFP7H8w/logo.png"
+            alt="LOGO"
+            background-color="#FF0000"
+          />
         </Typography>
         <Typography variant="h6">Hello, Cindy Baker!</Typography>
         <Stack
